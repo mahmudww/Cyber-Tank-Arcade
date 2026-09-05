@@ -11,7 +11,7 @@
             box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
-            touch-action: manipulation;
+            touch-action: none;
         }
         body, html {
             margin: 0;
@@ -29,116 +29,150 @@
         #game-container {
             position: relative;
             width: 100%;
-            max-width: 400px;
             height: 100%;
-            max-height: 100vh;
+            max-width: 850px;
+            max-height: 480px;
             background: #090a0f;
             display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 35px rgba(0, 255, 204, 0.2);
+            flex-direction: row;
+            box-shadow: 0 0 35px rgba(0, 255, 204, 0.25);
             overflow: hidden;
             border: 2px solid #1f293d;
+        }
+        
+        /* Area Game / Canvas di Tengah */
+        .game-main {
+            position: relative;
+            flex-grow: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: #0d1117;
         }
         canvas {
             display: block;
             width: 100%;
             flex-grow: 1;
-            background: #0d1117;
         }
+        
         .ui-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 12px 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            pointer-events: none;
-            z-index: 5;
-        }
-        .header-hud {
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
-            font-size: 24px;
+            align-items: center;
+            pointer-events: none;
+            z-index: 5;
+            background: rgba(13, 17, 23, 0.75);
+            border-bottom: 1px solid #1f293d;
+        }
+        .header-hud {
+            font-size: 20px;
             font-weight: bold;
             letter-spacing: 2px;
             text-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+            display: flex;
+            gap: 20px;
         }
         .status-hud {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             font-size: 18px;
-            background: rgba(13, 17, 23, 0.85);
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid #1f293d;
+            display: flex;
+            gap: 20px;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
         }
 
-        /* Tombol Kontrol Layar Khusus HP */
-        .mobile-controls {
-            display: none; 
-            width: 100%;
-            height: 140px;
-            background: #030305;
-            border-top: 2px solid #1f293d;
-            flex-shrink: 0;
-            justify-content: space-between;
-            padding: 10px;
+        /* Panel Kontrol Analog & Tombol Fire Khusus Mobile Landscape */
+        .mobile-panel-left, .mobile-panel-right {
+            display: none; /* Default tersembunyi, muncul otomatis jika di HP */
+            width: 150px;
+            height: 100%;
+            background: rgba(3, 3, 5, 0.9);
+            align-items: center;
+            justify-content: center;
             z-index: 10;
+            flex-shrink: 0;
         }
-        .dpad {
-            display: grid;
-            grid-template-columns: 50px 50px 50px;
-            grid-template-rows: 45px 45px;
-            gap: 4px;
+        .mobile-panel-left {
+            border-right: 2px solid #1f293d;
         }
-        .dpad-btn {
-            background: #0d1117;
-            border: 1px solid #1f293d;
-            color: #00ffcc;
-            font-family: 'VT323', monospace;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            cursor: pointer;
+        .mobile-panel-right {
+            border-left: 2px solid #1f293d;
         }
-        .dpad-btn:active {
-            background: #1f293d;
-            color: #ffffff;
-            box-shadow: inset 0 0 8px rgba(0,255,204,0.5);
-        }
-        .btn-up { grid-column: 2; grid-row: 1; }
-        .btn-left { grid-column: 1; grid-row: 2; }
-        .btn-right { grid-column: 3; grid-row: 2; }
-        .btn-down { grid-column: 2; grid-row: 2; }
 
-        .fire-pad {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Virtual Analog Joystick (Gaya MLBB) */
+        #joystick-base {
             width: 110px;
+            height: 110px;
+            background: rgba(13, 17, 23, 0.6);
+            border: 2px solid rgba(0, 255, 204, 0.4);
+            border-radius: 50%;
+            position: relative;
+            touch-action: none;
         }
-        .fire-btn {
-            width: 100%;
+        #joystick-thumb {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 204, 0.7);
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
+            pointer-events: none;
+        }
+
+        /* Tombol Fire Besar */
+        .fire-btn-mobile {
+            width: 90px;
             height: 90px;
             background: #ff007f;
             border: 2px solid #ff3399;
             color: #ffffff;
             font-family: 'VT323', monospace;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .fire-btn:active {
+        .fire-btn-mobile:active {
             background: #cc0066;
             transform: scale(0.95);
+        }
+
+        /* Layar Notifikasi Rotasi Khusus HP Portrait */
+        #rotateNotice {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #030305;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            z-index: 100;
+        }
+        #rotateNotice h2 {
+            color: #ff007f;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255,0,127,0.6);
+        }
+        #rotateNotice p {
+            color: #00ffcc;
+            font-size: 18px;
+            line-height: 1.4;
         }
 
         .screen {
@@ -157,7 +191,7 @@
             z-index: 20;
         }
         h1 {
-            font-size: 58px;
+            font-size: 54px;
             margin-bottom: 5px;
             color: #ff007f;
             text-shadow: 0 0 20px rgba(255, 0, 127, 0.7);
@@ -165,10 +199,10 @@
         }
         p {
             color: #00ffcc;
-            font-size: 20px;
-            margin-bottom: 30px;
+            font-size: 19px;
+            margin-bottom: 25px;
             letter-spacing: 1px;
-            line-height: 1.5;
+            line-height: 1.4;
             text-shadow: 0 0 6px rgba(0, 255, 204, 0.4);
         }
         .btn {
@@ -177,7 +211,7 @@
             border: none;
             padding: 10px 35px;
             font-family: 'VT323', monospace;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
             letter-spacing: 2px;
             cursor: pointer;
@@ -195,33 +229,41 @@
 </head>
 <body>
 
-    <div id="game-container">
-        <!-- Canvas Game -->
-        <canvas id="gameCanvas"></canvas>
+    <!-- Layar Peringatan Putar HP ke Horizontal -->
+    <div id="rotateNotice">
+        <h2>🔄 PLEASE ROTATE YOUR DEVICE</h2>
+        <p>For the best arcade experience, please rotate your smartphone to <b>Landscape</b> mode.</p>
+    </div>
 
-        <!-- HUD Layer -->
-        <div class="ui-layer">
-            <div class="header-hud">
-                <span id="scoreDisplay">SCORE: 0000</span>
-                <span id="waveDisplay" style="color: #ff007f;">WAVE 1</span>
-            </div>
-            <div class="status-hud">
-                <span id="livesDisplay">LIVES: 3 💚</span>
-                <span id="enemiesLeft">ENEMIES: 10</span>
+    <div id="game-container">
+        <!-- Panel Kontrol Kiri: Virtual Analog (Hanya Muncul di HP) -->
+        <div id="mobileLeft" class="mobile-panel-left">
+            <div id="joystick-base">
+                <div id="joystick-thumb"></div>
             </div>
         </div>
 
-        <!-- Tombol Kontrol Layar (Hanya Muncul di HP) -->
-        <div id="mobileControls" class="mobile-controls">
-            <div class="dpad">
-                <button class="dpad-btn btn-up" ontouchstart="setTouchDir('UP')" onmousedown="setTouchDir('UP')">▲</button>
-                <button class="dpad-btn btn-left" ontouchstart="setTouchDir('LEFT')" onmousedown="setTouchDir('LEFT')">◀</button>
-                <button class="dpad-btn btn-down" ontouchstart="setTouchDir('DOWN')" onmousedown="setTouchDir('DOWN')">▼</button>
-                <button class="dpad-btn btn-right" ontouchstart="setTouchDir('RIGHT')" onmousedown="setTouchDir('RIGHT')">▶</button>
+        <!-- Area Utama Game (Horizontal untuk Laptop & HP) -->
+        <div class="game-main">
+            <!-- HUD Layer -->
+            <div class="ui-layer">
+                <div class="header-hud">
+                    <span id="scoreDisplay">SCORE: 0000</span>
+                    <span id="waveDisplay" style="color: #ff007f;">WAVE 1</span>
+                </div>
+                <div class="status-hud">
+                    <span id="livesDisplay">LIVES: 3 💚</span>
+                    <span id="enemiesLeft">ENEMIES: 10</span>
+                </div>
             </div>
-            <div class="fire-pad">
-                <button class="fire-btn" ontouchstart="playerFire()" onmousedown="playerFire()">FIRE</button>
-            </div>
+
+            <!-- Canvas Game -->
+            <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <!-- Panel Kontrol Kanan: Tombol Fire (Hanya Muncul di HP) -->
+        <div id="mobileRight" class="mobile-panel-right">
+            <button class="fire-btn-mobile" id="fireBtn">FIRE</button>
         </div>
 
         <!-- Start Screen -->
@@ -244,24 +286,37 @@
         const ctx = canvas.getContext("2d");
 
         function resizeCanvas() {
-            canvas.width = container.clientWidth;
-            const controlsHeight = isTouchDevice ? document.getElementById('mobileControls').offsetHeight : 0;
-            canvas.height = container.clientHeight - controlsHeight - document.querySelector('.ui-layer').offsetHeight - 10;
+            canvas.width = document.querySelector('.game-main').clientWidth;
+            canvas.height = document.querySelector('.game-main').clientHeight - document.querySelector('.ui-layer').offsetHeight;
         }
 
-        const container = document.getElementById("game-container");
-        
-        // Deteksi Perangkat Sentuh (HP/Tablet) vs Laptop
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-        
-        if (isTouchDevice) {
-            document.getElementById('mobileControls').style.display = 'flex';
-            document.getElementById('guideText').innerHTML = "Defend the Base • Use On-Screen D-Pad & Fire";
-        } else {
-            document.getElementById('guideText').innerHTML = "Defend the Base • Destroy Enemy Tanks<br><span style='color:#ffb86c; font-size:18px;'>Move: WASD / Arrow Keys &nbsp;|&nbsp; Shoot: Spacebar</span>";
+
+        // Pengaturan Tampilan Berdasarkan Perangkat
+        function checkDeviceLayout() {
+            if (isTouchDevice) {
+                // Jika di HP, wajibkan orientasi landscape
+                if (window.innerHeight > window.innerWidth) {
+                    document.getElementById('rotateNotice').style.display = 'flex';
+                } else {
+                    document.getElementById('rotateNotice').style.display = 'none';
+                    document.getElementById('mobileLeft').style.display = 'flex';
+                    document.getElementById('mobileRight').style.display = 'flex';
+                    document.getElementById('guideTextinnerHTML') = "Defend the Base • Use Left Analog & Right Fire Button";
+                }
+            } else {
+                // Jika di Laptop: Tampilan horizontal penuh tanpa panel analog/fire
+                document.getElementById('rotateNotice').style.display = 'none';
+                document.getElementById('mobileLeft').style.display = 'none';
+                document.getElementById('mobileRight').style.display = 'none';
+                document.getElementById('guideText').innerHTML = "Defend the Base • Destroy Enemy Tanks<br><span style='color:#ffb86c; font-size:17px;'>Move: WASD / Arrow Keys &nbsp;|&nbsp; Shoot: Spacebar</span>";
+            }
+            resizeCanvas();
         }
-        
-        resizeCanvas();
+
+        window.addEventListener('resize', checkDeviceLayout);
+        window.addEventListener('orientationchange', checkDeviceLayout);
+        checkDeviceLayout();
 
         let audioCtx = null;
         let bgmInterval = null;
@@ -276,10 +331,9 @@
             startBGM();
         }
 
-        // Musik Latar Belakang Synthwave (*BGM Arpeggio*)
         function startBGM() {
             if (bgmInterval) return;
-            const bassNotes = [110, 123.47, 130.81, 146.83]; // Nada bass retro
+            const bassNotes = [110, 123.47, 130.81, 146.83];
             let step = 0;
 
             bgmInterval = setInterval(() => {
@@ -364,18 +418,69 @@
 
         let player = {
             x: 0, y: 0,
-            size: 32,
+            size: 30,
             speed: 2.5,
             dir: 'UP'
         };
 
-        let base = { x: 0, y: 0, size: 32, alive: true };
+        let base = { x: 0, y: 0, size: 30, alive: true };
         let bullets = [];
         let enemies = [];
         let walls = [];
         let particles = [];
         let enemySpawnTimer = 0;
 
+        // --- Logika Virtual Analog Joystick (Mobile) ---
+        let joystickVector = { x: 0, y: 0 };
+        let joystickActive = false;
+        const joystickBase = document.getElementById('joystick-base');
+        const joystickThumb = document.getElementById('joystick-thumb');
+
+        joystickBase.addEventListener('touchstart', handleJoystickStart);
+        joystickBase.addEventListener('touchmove', handleJoystickMove);
+        joystickBase.addEventListener('touchend', handleJoystickEnd);
+
+        function handleJoystickStart(e) {
+            joystickActive = true;
+            handleJoystickMove(e);
+        }
+
+        function handleJoystickMove(e) {
+            if (!joystickActive) return;
+            let touch = e.touches[0];
+            let rect = joystickBase.getBoundingClientRect();
+            let centerX = rect.left + rect.width / 2;
+            let centerY = rect.top + rect.height / 2;
+            
+            let dx = touch.clientX - centerX;
+            let dy = touch.clientY - centerY;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            let maxRadius = 35;
+
+            if (distance > maxRadius) {
+                dx = (dx / distance) * maxRadius;
+                dy = (dy / distance) * maxRadius;
+                distance = maxRadius;
+            }
+
+            joystickThumb.style.transform = `translate(${dx}px, ${dy}px)`;
+            joystickVector.x = dx / maxRadius;
+            joystickVector.y = dy / maxRadius;
+        }
+
+        function handleJoystickEnd() {
+            joystickActive = false;
+            joystickThumb.style.transform = `translate(0px, 0px)`;
+            joystickVector.x = 0;
+            joystickVector.y = 0;
+        }
+
+        document.getElementById('fireBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            playerFire();
+        });
+
+        // Kontrol Keyboard Laptop
         let keys = {};
         window.addEventListener('keydown', e => {
             if (!isPlaying) return;
@@ -388,12 +493,6 @@
         window.addEventListener('keyup', e => {
             keys[e.code] = false;
         });
-
-        let touchDir = null;
-        function setTouchDir(dir) {
-            touchDir = dir;
-            setTimeout(() => { touchDir = null; }, 160);
-        }
 
         function playerFire() {
             if (!isPlaying) return;
@@ -416,12 +515,12 @@
 
         function initLevel() {
             resizeCanvas();
-            player.x = canvas.width / 2 - 60;
-            player.y = canvas.height - 70;
+            player.x = canvas.width / 2 - 50;
+            player.y = canvas.height - 60;
             player.dir = 'UP';
 
-            base.x = canvas.width / 2 - 16;
-            base.y = canvas.height - 40;
+            base.x = canvas.width / 2 - 15;
+            base.y = canvas.height - 35;
             base.alive = true;
             baseDestroyed = false;
 
@@ -431,11 +530,11 @@
             enemiesRemaining = 8 + (wave * 2);
 
             walls = [];
-            let cols = Math.floor(canvas.width / 40);
-            for (let r = 2; r < 6; r++) {
+            let cols = Math.floor(canvas.width / 45);
+            for (let r = 1; r < 4; r++) {
                 for (let c = 1; c < cols - 1; c++) {
-                    if (c !== Math.floor(cols / 2) && Math.random() > 0.35) {
-                        walls.push({ x: c * 40, y: r * 50, w: 36, h: 18 });
+                    if (c !== Math.floor(cols / 2) && Math.random() > 0.4) {
+                        walls.push({ x: c * 45, y: r * 45, w: 40, h: 16 });
                     }
                 }
             }
@@ -463,12 +562,12 @@
 
         function spawnEnemy() {
             if (enemies.length < 3 + Math.floor(wave/2) && enemiesRemaining > 0) {
-                let spawnX = Math.random() > 0.5 ? 20 : canvas.width - 52;
+                let spawnX = Math.random() > 0.5 ? 20 : canvas.width - 50;
                 enemies.push({
                     x: spawnX,
                     y: 20,
-                    size: 32,
-                    speed: 1.2 + (wave * 0.15),
+                    size: 30,
+                    speed: 1.1 + (wave * 0.12),
                     dir: 'DOWN',
                     shootTimer: 0
                 });
@@ -495,14 +594,26 @@
             let nextX = player.x;
             let nextY = player.y;
 
-            if (keys['KeyW'] || keys['ArrowUp'] || touchDir === 'UP') {
+            // Gerakan Keyboard Laptop
+            if (keys['KeyW'] || keys['ArrowUp']) {
                 player.dir = 'UP'; nextY -= player.speed;
-            } else if (keys['KeyS'] || keys['ArrowDown'] || touchDir === 'DOWN') {
+            } else if (keys['KeyS'] || keys['ArrowDown']) {
                 player.dir = 'DOWN'; nextY += player.speed;
-            } else if (keys['KeyA'] || keys['ArrowLeft'] || touchDir === 'LEFT') {
+            } else if (keys['KeyA'] || keys['ArrowLeft']) {
                 player.dir = 'LEFT'; nextX -= player.speed;
-            } else if (keys['KeyD'] || keys['ArrowRight'] || touchDir === 'RIGHT') {
+            } else if (keys['KeyD'] || keys['ArrowRight']) {
                 player.dir = 'RIGHT'; nextX += player.speed;
+            } 
+            // Gerakan Virtual Analog HP (Landscape)
+            else if (joystickActive) {
+                nextX += joystickVector.x * player.speed;
+                nextY += joystickVector.y * player.speed;
+
+                if (Math.abs(joystickVector.x) > Math.abs(joystickVector.y)) {
+                    player.dir = joystickVector.x > 0 ? 'RIGHT' : 'LEFT';
+                } else {
+                    player.dir = joystickVector.y > 0 ? 'DOWN' : 'UP';
+                }
             }
 
             if (nextX >= 10 && nextX + player.size <= canvas.width - 10 &&
@@ -535,7 +646,7 @@
                 if (en.y < 10 || en.y + en.size > canvas.height - 10) en.y -= evy;
 
                 en.shootTimer++;
-                if (en.shootTimer > 75) {
+                if (en.shootTimer > 80) {
                     en.shootTimer = 0;
                     let ebx = en.x + en.size / 2 - 3;
                     let eteby = en.y + en.size / 2 - 3;
@@ -611,8 +722,8 @@
                             gameOver();
                             return;
                         } else {
-                            player.x = canvas.width / 2 - 60;
-                            player.y = canvas.height - 70;
+                            player.x = canvas.width / 2 - 50;
+                            player.y = canvas.height - 60;
                         }
                         continue;
                     }
@@ -636,7 +747,6 @@
             }
         }
 
-        // Fungsi Render Tank Estetik Detail
         function drawTank(x, y, size, dir, color, isPlayer) {
             ctx.save();
             ctx.translate(x + size / 2, y + size / 2);
@@ -647,23 +757,19 @@
             else if (dir === 'RIGHT') angle = Math.PI / 2;
             ctx.rotate(angle);
 
-            // Track Roda
             ctx.fillStyle = "#161b22";
-            ctx.fillRect(-size/2, -size/2, 7, size);
-            ctx.fillRect(size/2 - 7, -size/2, 7, size);
+            ctx.fillRect(-size/2, -size/2, 6, size);
+            ctx.fillRect(size/2 - 6, -size/2, 6, size);
 
-            // Bodi Tank
             ctx.fillStyle = color;
-            ctx.fillRect(-size/2 + 7, -size/2 + 3, size - 14, size - 6);
+            ctx.fillRect(-size/2 + 6, -size/2 + 3, size - 12, size - 6);
 
-            // Meriam Tank
             ctx.fillStyle = isPlayer ? "#ffffff" : "#ff3333";
-            ctx.fillRect(-3, -size/2 - 8, 6, 18);
+            ctx.fillRect(-3, -size/2 - 8, 6, 16);
 
-            // Kubah Pusat
             ctx.fillStyle = "#090a0f";
             ctx.beginPath();
-            ctx.arc(0, 0, 7, 0, Math.PI * 2);
+            ctx.arc(0, 0, 6, 0, Math.PI * 2);
             ctx.fill();
 
             ctx.restore();
@@ -672,7 +778,6 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Latar Peta Grid
             ctx.strokeStyle = "#161b22";
             ctx.lineWidth = 1;
             for (let x = 0; x < canvas.width; x += 40) {
@@ -682,7 +787,6 @@
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
 
-            // Dinding Bata
             for (let wall of walls) {
                 ctx.fillStyle = "#ffb86c";
                 ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
@@ -691,14 +795,13 @@
                 ctx.strokeRect(wall.x, wall.y, wall.w, wall.h);
             }
 
-            // Markas Base
             if (base.alive) {
                 ctx.fillStyle = "#00ffcc";
                 ctx.fillRect(base.x, base.y, base.size, base.size);
                 ctx.fillStyle = "#ff007f";
-                ctx.fillRect(base.x + 6, base.y + 6, base.size - 12, base.size - 12);
+                ctx.fillRect(base.x + 5, base.y + 5, base.size - 10, base.size - 10);
                 ctx.fillStyle = "#ffffff";
-                ctx.font = "bold 13px 'VT323', monospace";
+                ctx.font = "bold 12px 'VT323', monospace";
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
                 ctx.fillText("BASE", base.x + base.size/2, base.y + base.size/2);
@@ -714,21 +817,17 @@
                 ctx.restore();
             }
 
-            // Tank Pemain
             drawTank(player.x, player.y, player.size, player.dir, "#00ffcc", true);
 
-            // Tank Musuh
             for (let en of enemies) {
                 drawTank(en.x, en.y, en.size, en.dir, "#ff0066", false);
             }
 
-            // Peluru
             for (let b of bullets) {
                 ctx.fillStyle = b.isPlayer ? "#ffff00" : "#ff3333";
                 ctx.fillRect(b.x, b.y, b.size, b.size);
             }
 
-            // Efek Scanline CRT
             ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
             for (let sy = 0; sy < canvas.height; sy += 4) {
                 ctx.fillRect(0, sy, canvas.width, 1);
