@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cyber Tank: Operation Frontline</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=VT323&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
 
         * {
             box-sizing: border-box;
@@ -18,19 +18,20 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #010103;
-            font-family: 'VT323', monospace;
+            background-color: #000000;
+            font-family: 'Orbitron', sans-serif;
             color: #00ffcc;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: fixed;
         }
         #game-container {
             position: relative;
             width: 100%;
             height: 100%;
-            background: #030408;
+            background: #020205;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -39,97 +40,94 @@
             display: block;
             width: 100%;
             height: 100%;
-            background: #060913;
+            background: #03050a;
         }
         
-        /* UI HUD Cyberpunk High-End */
+        /* UI HUD High Contrast */
         .ui-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 14px 30px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             pointer-events: none;
             z-index: 5;
-            background: linear-gradient(180deg, rgba(3, 4, 8, 0.95) 0%, rgba(3, 4, 8, 0.4) 100%);
-            border-bottom: 2px solid #00ffcc33;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            background: rgba(2, 2, 5, 0.95);
+            border-bottom: 2px solid #00ffcc66;
         }
         .header-hud {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             color: #00ffcc;
-            text-shadow: 0 0 12px rgba(0, 255, 204, 0.8);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.9);
             display: flex;
-            gap: 30px;
+            gap: 20px;
         }
         .status-hud {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 700;
             display: flex;
-            gap: 30px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            gap: 20px;
+            align-items: center;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
         }
 
-        /* Tombol Fire Translucent Futuristik */
+        /* Tombol Fire High Contrast Translucent */
         .mobile-fire-btn {
             position: absolute;
-            bottom: 40px;
-            right: 40px;
-            width: 110px;
-            height: 110px;
-            background: rgba(255, 0, 127, 0.2);
-            border: 3px solid rgba(255, 51, 153, 0.75);
+            bottom: 30px;
+            right: 30px;
+            width: 95px;
+            height: 95px;
+            background: rgba(255, 0, 100, 0.3);
+            border: 3px solid #ff0066;
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 900;
             letter-spacing: 1px;
             border-radius: 50%;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.4), inset 0 0 12px rgba(255, 0, 127, 0.3);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 25px rgba(255, 0, 102, 0.6);
             cursor: pointer;
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 15;
-            transition: transform 0.08s, background 0.08s;
+            transition: transform 0.05s, background 0.05s;
         }
         .mobile-fire-btn:active {
-            background: rgba(255, 0, 127, 0.65);
+            background: rgba(255, 0, 102, 0.8);
             transform: scale(0.92);
         }
 
-        /* Floating Joystick Fluid Modern */
+        /* Floating Joystick High Contrast */
         #virtual-joystick {
             position: absolute;
-            width: 150px;
-            height: 150px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            background: rgba(0, 255, 204, 0.06);
-            border: 2px solid rgba(0, 255, 204, 0.3);
+            background: rgba(0, 255, 204, 0.08);
+            border: 2px solid rgba(0, 255, 204, 0.5);
             transform: translate(-50%, -50%);
             display: none;
             pointer-events: none;
             z-index: 15;
-            box-shadow: 0 0 20px rgba(0,255,204,0.15);
         }
         #joystick-thumb-fluid {
             position: absolute;
-            width: 65px;
-            height: 65px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            background: rgba(0, 255, 204, 0.8);
+            background: #00ffcc;
             border: 2px solid #ffffff;
-            top: 42.5px;
-            left: 42.5px;
-            box-shadow: 0 0 18px rgba(0, 255, 204, 0.95);
+            top: 35.5px;
+            left: 35.5px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 1);
         }
 
         /* Layar Peringatan Rotasi HP */
@@ -139,7 +137,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #010103;
+            background: #000000;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -149,16 +147,15 @@
             z-index: 100;
         }
         #rotateNotice h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: #ff007f;
-            font-size: 28px;
-            margin-bottom: 12px;
-            text-shadow: 0 0 15px rgba(255,0,127,0.7);
+            color: #ff0066;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255,0,102,0.9);
         }
         #rotateNotice p {
             color: #00ffcc;
-            font-size: 18px;
-            line-height: 1.5;
+            font-size: 15px;
+            line-height: 1.4;
         }
 
         .screen {
@@ -177,39 +174,37 @@
             z-index: 20;
         }
         h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 64px;
+            font-size: 42px;
             font-weight: 900;
-            margin-bottom: 10px;
-            color: #ff007f;
-            text-shadow: 0 0 35px rgba(255, 0, 127, 0.9);
-            letter-spacing: 4px;
+            margin-bottom: 8px;
+            color: #ff0066;
+            text-shadow: 0 0 30px rgba(255, 0, 102, 0.9);
+            letter-spacing: 3px;
         }
         p {
             color: #00ffcc;
-            font-size: 22px;
-            margin-bottom: 35px;
-            letter-spacing: 1px;
-            line-height: 1.6;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+            font-size: 16px;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            line-height: 1.5;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
         }
         .btn {
-            font-family: 'Orbitron', sans-serif;
             background: #00ffcc;
-            color: #010103;
+            color: #000000;
             border: none;
-            padding: 16px 50px;
-            font-size: 22px;
+            padding: 12px 36px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.6);
-            transition: all 0.15s;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.7);
+            transition: all 0.1s;
         }
         .btn:active {
             transform: scale(0.95);
             background: #ffffff;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
         }
         .hidden {
             display: none !important;
@@ -221,7 +216,7 @@
     <!-- Layar Peringatan Rotasi HP -->
     <div id="rotateNotice">
         <h2>🔄 ROTATE DEVICE</h2>
-        <p>Operation Frontline requires <b>Landscape</b> mode for optimal tactical combat.</p>
+        <p>Operation Frontline requires <b>Landscape</b> mode for optimal combat.</p>
     </div>
 
     <div id="game-container">
@@ -232,7 +227,7 @@
                 <span id="levelDisplay" style="color: #00ffcc;">LVL 1-1</span>
             </div>
             <div class="status-hud">
-                <span id="powerupStatus" style="color: #facc15; font-size:16px;"></span>
+                <span id="powerupStatus" style="color: #38bdf8; font-size:13px;"></span>
                 <span id="livesDisplay">LIVES: 3 💚</span>
                 <span id="enemiesLeft">ENEMIES: 6</span>
             </div>
@@ -252,21 +247,21 @@
         <!-- Start Screen -->
         <div id="startScreen" class="screen">
             <h1>CYBER TANK</h1>
-            <p id="guideText">Infiltrate Enemy Lines • Collect Power-ups • Destroy Level 5 Base</p>
+            <p id="guideText">Infiltrate Enemy Lines • Collect Bazooka & Shield • Destroy Level 5 Base</p>
             <button class="btn" onclick="startGame()">DEPLOY</button>
         </div>
 
         <!-- Game Over Screen -->
         <div id="gameOverScreen" class="screen hidden">
-            <h1 style="color: #ff3333; text-shadow: 0 0 25px rgba(255,51,51,0.9);">MISSION FAILED</h1>
-            <p id="finalScoreText" style="color: #94a3b8;">YOUR TANK WAS DESTROYED IN COMBAT</p>
+            <h1 style="color: #ff0066;">MISSION FAILED</h1>
+            <p id="finalScoreText" style="color: #94a3b8;">YOUR TANK WAS DESTROYED</p>
             <button class="btn" onclick="startGame()">RE-DEPLOY</button>
         </div>
 
         <!-- Victory Screen -->
         <div id="victoryScreen" class="screen hidden">
-            <h1 style="color: #facc15; text-shadow: 0 0 30px rgba(250,204,21,1);">VICTORY!</h1>
-            <p id="victoryScoreText" style="color: #00ffcc;">ENEMY BASE OBLITERATED. FRONTLINE SECURED.</p>
+            <h1 style="color: #facc15;">VICTORY!</h1>
+            <p id="victoryScoreText" style="color: #00ffcc;">ENEMY BASE OBLITERATED.</p>
             <button class="btn" onclick="startGame()">PLAY AGAIN</button>
         </div>
     </div>
@@ -289,12 +284,12 @@
                 } else {
                     document.getElementById('rotateNotice').style.display = 'none';
                     document.getElementById('mobileFireBtn').style.display = 'flex';
-                    document.getElementById('guideText').innerHTML = "Infiltrate Enemy Lines • Touch Left Screen to Move & Right Fire to Shoot";
+                    document.getElementById('guideText').innerHTML = "Touch Left Screen to Move & Right Fire to Shoot";
                 }
             } else {
                 document.getElementById('rotateNotice').style.display = 'none';
                 document.getElementById('mobileFireBtn').style.display = 'none';
-                document.getElementById('guideText').innerHTML = "Infiltrate Enemy Lines • Collect Power-ups • Destroy Level 5 Base<br><span style='color:#ffb86c; font-size:18px;'>Move: WASD / Arrow Keys &nbsp;|&nbsp; Shoot: Spacebar</span>";
+                document.getElementById('guideText').innerHTML = "Infiltrate Enemy Lines • Collect Bazooka & Shield • Destroy Level 5 Base<br><span style='color:#00ffcc; font-size:14px;'>Move: WASD / Arrow Keys &nbsp;|&nbsp; Shoot: Spacebar</span>";
             }
             resizeCanvas();
         }
@@ -331,7 +326,7 @@
 
                     let filter = audioCtx.createBiquadFilter();
                     filter.type = "lowpass";
-                    filter.frequency.setValueAtTime(700, audioCtx.currentTime);
+                    filter.frequency.setValueAtTime(800, audioCtx.currentTime);
 
                     gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
@@ -371,6 +366,14 @@
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
                     osc.start(now);
                     osc.stop(now + 0.08);
+                } else if (type === "bazooka") {
+                    osc.type = "sawtooth";
+                    osc.frequency.setValueAtTime(250, now);
+                    osc.frequency.exponentialRampToValueAtTime(40, now + 0.15);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
                 } else if (type === "powerup") {
                     osc.type = "triangle";
                     osc.frequency.setValueAtTime(400, now);
@@ -379,14 +382,6 @@
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
                     osc.start(now);
                     osc.stop(now + 0.2);
-                } else if (type === "emp") {
-                    osc.type = "sawtooth";
-                    osc.frequency.setValueAtTime(300, now);
-                    osc.frequency.linearRampToValueAtTime(40, now + 0.6);
-                    gain.gain.setValueAtTime(0.25, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-                    osc.start(now);
-                    osc.stop(now + 0.6);
                 } else if (type === "explode") {
                     osc.type = "sawtooth";
                     osc.frequency.setValueAtTime(160, now);
@@ -425,9 +420,9 @@
         let player = {
             x: 0, y: 0,
             size: 36,
-            speed: 4.2,
+            speed: 4.8,
             dir: 'UP',
-            activePowerup: null, // 'laser', 'shield', 'emp'
+            activePowerup: null,
             powerupTimer: 0
         };
 
@@ -439,7 +434,6 @@
         let particles = [];
         let enemySpawnTimer = 0;
 
-        // --- Perbaikan Total Floating Joystick (Super Cair & Anti-Kaku) ---
         let joystickVector = { x: 0, y: 0 };
         let joystickActive = false;
         let joystickTouchId = null;
@@ -465,7 +459,7 @@
                     joystickVector.y = 0;
                 }
             }
-        });
+        }, { passive: true });
 
         window.addEventListener('touchmove', (e) => {
             if (!joystickActive) return;
@@ -475,12 +469,11 @@
                     let dx = touch.clientX - joystickOrigin.x;
                     let dy = touch.clientY - joystickOrigin.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-                    let maxRadius = 50;
+                    let maxRadius = 45;
 
                     if (distance > maxRadius) {
                         dx = (dx / distance) * maxRadius;
                         dy = (dy / distance) * maxRadius;
-                        distance = maxRadius;
                     }
 
                     thumbEl.style.transform = `translate(${dx}px, ${dy}px)`;
@@ -488,7 +481,7 @@
                     joystickVector.y = dy / maxRadius;
                 }
             }
-        });
+        }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
             if (!joystickActive) return;
@@ -502,12 +495,12 @@
                     joystickVector.y = 0;
                 }
             }
-        });
+        }, { passive: true });
 
         document.getElementById('mobileFireBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
             playerFire();
-        });
+        }, { passive: false });
 
         let keys = {};
         window.addEventListener('keydown', e => {
@@ -525,25 +518,27 @@
         function playerFire() {
             if (!isPlaying) return;
             let playerBullets = bullets.filter(b => b.isPlayer);
-            let limit = player.activePowerup === 'laser' ? 6 : 3;
+            let limit = player.activePowerup === 'bazooka' ? 2 : 3;
             if (playerBullets.length < limit) {
-                playSound("shoot");
-                let bx = player.x + player.size / 2 - 3;
-                let by = player.y + player.size / 2 - 3;
+                let isBazooka = player.activePowerup === 'bazooka';
+                playSound(isBazooka ? "bazooka" : "shoot");
+
+                let bx = player.x + player.size / 2 - (isBazooka ? 6 : 3);
+                let by = player.y + player.size / 2 - (isBazooka ? 6 : 3);
                 let vx = 0, vy = 0;
-                let speed = player.activePowerup === 'laser' ? 11 : 8.5;
+                let speed = isBazooka ? 7.5 : 10;
 
                 if (player.dir === 'UP') vy = -speed;
                 else if (player.dir === 'DOWN') vy = speed;
                 else if (player.dir === 'LEFT') vx = -speed;
                 else if (player.dir === 'RIGHT') vx = speed;
 
-                bullets.push({ x: bx, y: by, vx: vx, vy: vy, size: player.activePowerup === 'laser' ? 8 : 6, isPlayer: true });
-                
-                // Jika power-up laser, tembakkan dobel laras
-                if (player.activePowerup === 'laser') {
-                    bullets.push({ x: bx + (vy !== 0 ? 10 : 0), y: by + (vx !== 0 ? 10 : 0), vx: vx, vy: vy, size: 8, isPlayer: true });
-                }
+                bullets.push({ 
+                    x: bx, y: by, vx: vx, vy: vy, 
+                    size: isBazooka ? 14 : 6, 
+                    isPlayer: true, 
+                    isBazooka: isBazooka 
+                });
             }
         }
 
@@ -587,6 +582,10 @@
 
         function startGame() {
             initAudio();
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            }
+
             document.getElementById("startScreen").classList.add("hidden");
             document.getElementById("gameOverScreen").classList.add("hidden");
             document.getElementById("victoryScreen").classList.add("hidden");
@@ -623,7 +622,7 @@
                     x: spawnX,
                     y: 70,
                     size: 36,
-                    speed: 1.15 + (level * 0.12),
+                    speed: 1.25 + (level * 0.1),
                     dir: 'DOWN',
                     shootTimer: 0
                 });
@@ -632,7 +631,7 @@
         }
 
         function spawnPowerup(x, y) {
-            let types = ['heart', 'laser', 'emp', 'shield'];
+            let types = ['heart', 'bazooka', 'shield'];
             let chosen = types[Math.floor(Math.random() * types.length)];
             powerups.push({ x: x, y: y, size: 28, type: chosen });
         }
@@ -641,9 +640,9 @@
             for (let i = 0; i < count; i++) {
                 particles.push({
                     x: x, y: y,
-                    vx: (Math.random() - 0.5) * 8,
-                    vy: (Math.random() - 0.5) * 8,
-                    radius: Math.random() * 4.5 + 1,
+                    vx: (Math.random() - 0.5) * 7,
+                    vy: (Math.random() - 0.5) * 7,
+                    radius: Math.random() * 4 + 1,
                     color: color,
                     alpha: 1
                 });
@@ -653,7 +652,6 @@
         function update() {
             if (!isPlaying) return;
 
-            // Timer Durasi Power-up
             if (player.activePowerup) {
                 player.powerupTimer--;
                 if (player.powerupTimer <= 0) {
@@ -665,7 +663,6 @@
             let nextX = player.x;
             let nextY = player.y;
 
-            // Gerakan Keyboard Laptop
             if (keys['KeyW'] || keys['ArrowUp']) {
                 player.dir = 'UP'; nextY -= player.speed;
             } else if (keys['KeyS'] || keys['ArrowDown']) {
@@ -675,10 +672,9 @@
             } else if (keys['KeyD'] || keys['ArrowRight']) {
                 player.dir = 'RIGHT'; nextX += player.speed;
             } 
-            // Gerakan Floating Joystick (Sangat Halus & Responsif)
             else if (joystickActive) {
-                nextX += joystickVector.x * player.speed * 1.25;
-                nextY += joystickVector.y * player.speed * 1.25;
+                nextX += joystickVector.x * player.speed * 1.35;
+                nextY += joystickVector.y * player.speed * 1.35;
 
                 if (Math.abs(joystickVector.x) > Math.abs(joystickVector.y)) {
                     player.dir = joystickVector.x > 0 ? 'RIGHT' : 'LEFT';
@@ -695,12 +691,11 @@
 
             if (!(level === 5 && wave === 2)) {
                 enemySpawnTimer++;
-                if (enemySpawnTimer % 70 === 0) {
+                if (enemySpawnTimer % 65 === 0) {
                     spawnEnemy();
                 }
             }
 
-            // Update Musuh
             for (let en of enemies) {
                 if (Math.random() < 0.035) {
                     let dirs = ['UP', 'DOWN', 'LEFT', 'RIGHT'];
@@ -720,12 +715,12 @@
                 if (en.y < 60 || en.y + en.size > canvas.height - 20) en.y -= evy;
 
                 en.shootTimer++;
-                if (en.shootTimer > 65) {
+                if (en.shootTimer === 60) {
                     en.shootTimer = 0;
                     let ebx = en.x + en.size / 2 - 3;
                     let eteby = en.y + en.size / 2 - 3;
                     let bvx = 0, bvy = 0;
-                    let bspeed = 5;
+                    let bspeed = 5.5;
                     if (en.dir === 'UP') bvy = -bspeed;
                     else if (en.dir === 'DOWN') bvy = bspeed;
                     else if (en.dir === 'LEFT') bvx = -bspeed;
@@ -735,7 +730,6 @@
                 }
             }
 
-            // Cek Tabrakan Power-up dengan Player
             for (let p = powerups.length - 1; p >= 0; p--) {
                 let pw = powerups[p];
                 if (player.x < pw.x + pw.size && player.x + player.size > pw.x &&
@@ -745,26 +739,20 @@
                     if (pw.type === 'heart') {
                         lives++;
                         document.getElementById("powerupStatus").innerText = "EXTRA LIFE +1 💚";
-                    } else if (pw.type === 'laser') {
-                        player.activePowerup = 'laser';
-                        player.powerupTimer = 350; // durasi
-                        document.getElementById("powerupStatus").innerText = "OVERCHARGE LASER ⚡";
+                    } else if (pw.type === 'bazooka') {
+                        player.activePowerup = 'bazooka';
+                        player.powerupTimer = 450;
+                        document.getElementById("powerupStatus").innerText = "PLASMA BAZOOKA 🚀";
                     } else if (pw.type === 'shield') {
                         player.activePowerup = 'shield';
-                        player.powerupTimer = 300;
+                        player.powerupTimer = 350;
                         document.getElementById("powerupStatus").innerText = "ENERGY SHIELD 🛡️";
-                    } else if (pw.type === 'emp') {
-                        playSound("emp");
-                        createParticles(canvas.width/2, canvas.height/2, "#00ffcc", 80);
-                        enemies = []; // Hancurkan semua musuh di layar seketika!
-                        document.getElementById("powerupStatus").innerText = "CYBER EMP BOMB! 💣";
                     }
 
                     powerups.splice(p, 1);
                 }
             }
 
-            // Update Peluru
             for (let i = bullets.length - 1; i >= 0; i--) {
                 let b = bullets[i];
                 b.x += b.vx;
@@ -780,8 +768,11 @@
                     let wall = walls[w];
                     if (b.x < wall.x + wall.w && b.x + b.size > wall.x &&
                         b.y < wall.y + wall.h && b.y + b.size > wall.y) {
+                        
+                        if (!b.isBazooka) {
+                            hitWall = true;
+                        }
                         walls.splice(w, 1);
-                        hitWall = true;
                         createParticles(wall.x + wall.w/2, wall.y + wall.h/2, "#ffb86c", 8);
                         break;
                     }
@@ -794,10 +785,13 @@
                 if (b.isPlayer) {
                     if (enemyBase && b.x < enemyBase.x + enemyBase.w && b.x + b.size > enemyBase.x &&
                         b.y < enemyBase.y + enemyBase.h && b.y + b.size > enemyBase.y) {
-                        enemyBase.health--;
+                        
+                        let dmg = b.isBazooka ? 3 : 1;
+                        enemyBase.health -= dmg;
                         playSound("explode");
-                        createParticles(b.x, b.y, "#ff007f", 12);
+                        createParticles(b.x, b.y, "#ff0066", 15);
                         bullets.splice(i, 1);
+                        
                         if (enemyBase.health <= 0) {
                             createParticles(enemyBase.x + enemyBase.w/2, enemyBase.y + enemyBase.h/2, "#facc15", 60);
                             victory();
@@ -812,16 +806,15 @@
                         if (b.x < en.x + en.size && b.x + b.size > en.x &&
                             b.y < en.y + en.size && b.y + b.size > en.y) {
                             
-                            // Peluang 35% spawn power-up saat musuh hancur
                             if (Math.random() < 0.35) {
                                 spawnPowerup(en.x, en.y);
                             }
 
                             enemies.splice(e, 1);
                             hitEnemy = true;
-                            score += 150;
+                            score += b.isBazooka ? 300 : 150;
                             playSound("explode");
-                            createParticles(en.x + en.size/2, en.y + en.size/2, "#ff007f", 25);
+                            createParticles(en.x + en.size/2, en.y + en.size/2, "#ff0066", 25);
                             
                             if (enemies.length === 0 && enemiesRemaining === 0) {
                                 playSound("wave_clear");
@@ -843,8 +836,10 @@
                         }
                     }
                     if (hitEnemy) {
-                        bullets.splice(i, 1);
-                        continue;
+                        if (!b.isBazooka) {
+                            bullets.splice(i, 1);
+                            continue;
+                        }
                     }
                 } else {
                     if (b.x < player.x + player.size && b.x + b.size > player.x &&
@@ -852,7 +847,6 @@
                         
                         bullets.splice(i, 1);
 
-                        // Jika punya shield, abaikan damage
                         if (player.activePowerup === 'shield') {
                             playSound("powerup");
                             continue;
@@ -881,7 +875,7 @@
             }
         }
 
-        // Render Tank Masterpiece AAA-Indie
+        // Render Tank Kontras Tinggi (Pemain Cyan Terang vs Musuh Merah Crimson Menyala)
         function drawTank(x, y, size, dir, color, isPlayer) {
             ctx.save();
             ctx.translate(x + size / 2, y + size / 2);
@@ -892,7 +886,6 @@
             else if (dir === 'RIGHT') angle = Math.PI / 2;
             ctx.rotate(angle);
 
-            // Efek Shield Ring jika aktif
             if (isPlayer && player.activePowerup === 'shield') {
                 ctx.strokeStyle = "#38bdf8";
                 ctx.lineWidth = 4;
@@ -902,40 +895,39 @@
             }
 
             // Bayangan
-            ctx.fillStyle = "rgba(0,0,0,0.6)";
-            ctx.fillRect(-size/2 + 4, -size/2 + 4, size, size);
+            ctx.fillStyle = "rgba(0,0,0,0.7)";
+            ctx.fillRect(-size/2 + 3, -size/2 + 3, size, size);
 
-            // Trek Roda
-            ctx.fillStyle = "#090a0f";
+            // Trek Roda (Hitam pekat agar kontras)
+            ctx.fillStyle = "#000000";
             ctx.fillRect(-size/2, -size/2, 8, size);
             ctx.fillRect(size/2 - 8, -size/2, 8, size);
-            ctx.fillStyle = "#475569";
+            ctx.fillStyle = "#64748b";
             ctx.fillRect(-size/2 + 2, -size/2 + 4, 4, size - 8);
             ctx.fillRect(size/2 - 6, -size/2 + 4, 4, size - 8);
 
-            // Bodi Utama
+            // Bodi Utama Tank
             ctx.fillStyle = color;
             ctx.fillRect(-size/2 + 8, -size/2 + 4, size - 16, size - 8);
             
-            // Armor Tengah & Indikator Powerup Laser
-            ctx.fillStyle = (isPlayer && player.activePowerup === 'laser') ? "#facc15" : (isPlayer ? "#00b38f" : "#b30047");
+            let isBazookaActive = isPlayer && player.activePowerup === 'bazooka';
+            ctx.fillStyle = isBazookaActive ? "#38bdf8" : (isPlayer ? "#008066" : "#800022");
             ctx.fillRect(-size/2 + 10, -size/2 + 8, size - 20, size - 16);
 
-            // Laras Meriam (Dobel jika Laser aktif)
-            ctx.fillStyle = isPlayer ? "#ffffff" : "#ff3333";
-            if (isPlayer && player.activePowerup === 'laser') {
-                ctx.fillRect(-6, -size/2 - 13, 4, 26);
-                ctx.fillRect(2, -size/2 - 13, 4, 26);
+            // Laras Meriam Terang
+            ctx.fillStyle = isPlayer ? "#ffffff" : "#ffcc00";
+            if (isBazookaActive) {
+                ctx.fillRect(-5, -size/2 - 16, 10, 30);
             } else {
-                ctx.fillRect(-3.5, -size/2 - 13, 7, 26);
+                ctx.fillRect(-3.5, -size/2 - 12, 7, 24);
             }
-            ctx.fillStyle = "#030408";
-            ctx.fillRect(-1.5, -size/2 - 13, 3, 5);
+            ctx.fillStyle = "#020205";
+            ctx.fillRect(-1.5, -size/2 - 12, 3, 5);
 
             // Kubah Turret
-            ctx.fillStyle = "#030408";
+            ctx.fillStyle = "#020205";
             ctx.beginPath();
-            ctx.arc(0, 0, 9, 0, Math.PI * 2);
+            ctx.arc(0, 0, 8, 0, Math.PI * 2);
             ctx.fill();
             ctx.strokeStyle = color;
             ctx.lineWidth = 2.5;
@@ -947,64 +939,61 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Latar Grid Cyber
-            ctx.strokeStyle = "#0f172a";
-            ctx.lineWidth = 1.2;
-            for (let x = 0; x < canvas.width; x += 60) {
+            // Latar Belakang Gelap Pekat dengan Garis Grid Cyan Sangat Tipis
+            ctx.strokeStyle = "#0d1b2a";
+            ctx.lineWidth = 1;
+            for (let x = 0; x < canvas.width; x += 50) {
                 ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
             }
-            for (let y = 0; y < canvas.height; y += 60) {
+            for (let y = 0; y < canvas.height; y += 50) {
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
 
-            // Render Base Lawan (Level 5 Wave 2)
             if (enemyBase) {
-                ctx.fillStyle = "#991b1b";
+                ctx.fillStyle = "#7f1d1d";
                 ctx.fillRect(enemyBase.x, enemyBase.y, enemyBase.w, enemyBase.h);
                 ctx.strokeStyle = "#f87171";
                 ctx.lineWidth = 3;
                 ctx.strokeRect(enemyBase.x, enemyBase.y, enemyBase.w, enemyBase.h);
 
                 ctx.fillStyle = "#facc15";
-                ctx.fillRect(enemyBase.x + 15, enemyBase.y + 15, enemyBase.w - 30, enemyBase.h - 30);
+                ctx.fillRect(enemyBase.x + 12, enemyBase.y + 12, enemyBase.w - 24, enemyBase.h - 24);
                 
                 ctx.fillStyle = "#ffffff";
-                ctx.font = "bold 18px 'Orbitron', sans-serif";
+                ctx.font = "bold 14px 'Orbitron', sans-serif";
                 ctx.textAlign = "center";
-                ctx.fillText("ENEMY COMMAND BASE", enemyBase.x + enemyBase.w/2, enemyBase.y - 12);
+                ctx.fillText("ENEMY COMMAND BASE", enemyBase.x + enemyBase.w/2, enemyBase.y - 10);
 
-                ctx.fillStyle = "#0f172a";
-                ctx.fillRect(enemyBase.x, enemyBase.y - 32, enemyBase.w, 10);
-                ctx.fillStyle = "#ef4444";
-                ctx.fillRect(enemyBase.x, enemyBase.y - 32, enemyBase.w * (enemyBase.health / enemyBase.maxHealth), 10);
+                ctx.fillStyle = "#000000";
+                ctx.fillRect(enemyBase.x, enemyBase.y - 28, enemyBase.w, 8);
+                ctx.fillStyle = "#ff0066";
+                ctx.fillRect(enemyBase.x, enemyBase.y - 28, enemyBase.w * (enemyBase.health / enemyBase.maxHealth), 8);
             }
 
-            // Render Barikade
             for (let wall of walls) {
-                ctx.fillStyle = "#d97706";
+                ctx.fillStyle = "#f59e0b"; // Oranye Bata Terang
                 ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
                 ctx.strokeStyle = "#78350f";
                 ctx.lineWidth = 2;
                 ctx.strokeRect(wall.x, wall.y, wall.w, wall.h);
             }
 
-            // Render Power-ups di Arena
             for (let pw of powerups) {
                 ctx.save();
                 ctx.translate(pw.x + pw.size/2, pw.y + pw.size/2);
-                ctx.fillStyle = pw.type === 'heart' ? '#22c55e' : (pw.type === 'laser' ? '#facc15' : (pw.type === 'shield' ? '#38bdf8' : '#ec4899'));
+                ctx.fillStyle = pw.type === 'heart' ? '#22c55e' : (pw.type === 'bazooka' ? '#38bdf8' : '#eab308');
                 ctx.beginPath();
                 ctx.arc(0, 0, pw.size/2, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.strokeStyle = "#ffffff";
-                ctx.lineWidth = 2;
+                ctx.lineWidth = 2.5;
                 ctx.stroke();
 
-                ctx.fillStyle = "#030408";
-                ctx.font = "bold 14px 'Orbitron', sans-serif";
+                ctx.fillStyle = "#000000";
+                ctx.font = "bold 13px 'Orbitron', sans-serif";
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
-                let symbol = pw.type === 'heart' ? '💚' : (pw.type === 'laser' ? '⚡' : (pw.type === 'shield' ? '🛡️' : '💣'));
+                let symbol = pw.type === 'heart' ? '💚' : (pw.type === 'bazooka' ? '🚀' : '🛡️');
                 ctx.fillText(symbol, 0, 1);
                 ctx.restore();
             }
@@ -1019,6 +1008,7 @@
                 ctx.restore();
             }
 
+            // Gambar Player (Cyan Terang #00ffcc) & Musuh (Merah Crimson #ff0066)
             drawTank(player.x, player.y, player.size, player.dir, "#00ffcc", true);
 
             for (let en of enemies) {
@@ -1026,14 +1016,14 @@
             }
 
             for (let b of bullets) {
-                ctx.fillStyle = b.isPlayer ? "#facc15" : "#ef4444";
+                ctx.fillStyle = b.isBazooka ? "#38bdf8" : (b.isPlayer ? "#facc15" : "#ff1a40");
                 ctx.beginPath();
                 ctx.arc(b.x + b.size/2, b.y + b.size/2, b.size/2, 0, Math.PI * 2);
                 ctx.fill();
             }
 
-            // Efek Scanline CRT High-End
-            ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
+            // Efek Scanline CRT Tipis
+            ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
             for (let sy = 0; sy < canvas.height; sy += 4) {
                 ctx.fillRect(0, sy, canvas.width, 1);
             }
@@ -1041,7 +1031,7 @@
             document.getElementById("scoreDisplay").innerText = `SCORE: ${Math.floor(score).toString().padStart(4, '0')}`;
             if (level === 5 && wave === 2) {
                 document.getElementById("levelDisplay").innerText = `FINAL BOSS`;
-                document.getElementById("enemiesLeft").innerText = `BASE HP: ${enemyBase.health}`;
+                document.getElementById("enemiesLeft").innerText = `HP: ${enemyBase.health}`;
             } else {
                 document.getElementById("levelDisplay").innerText = `LVL ${level}-${wave}`;
                 document.getElementById("enemiesLeft").innerText = `ENEMIES: ${enemiesRemaining + enemies.length}`;
