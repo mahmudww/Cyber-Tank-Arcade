@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cyber Tank Arcade</title>
+    <title>Cyber Tank: Operation Frontline</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
@@ -18,7 +18,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #030305;
+            background-color: #020205;
             font-family: 'VT323', monospace;
             color: #00ffcc;
             display: flex;
@@ -30,7 +30,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            background: #090a0f;
+            background: #05050a;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -39,26 +39,27 @@
             display: block;
             width: 100%;
             height: 100%;
-            background: #0d1117;
+            background: #0a0e17;
         }
         
+        /* HUD UI Atas Modern */
         .ui-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 12px 20px;
+            padding: 12px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             pointer-events: none;
             z-index: 5;
-            background: rgba(13, 17, 23, 0.8);
-            border-bottom: 2px solid #1f293d;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background: linear-gradient(to bottom, rgba(5, 5, 10, 0.95), rgba(5, 5, 10, 0.6));
+            border-bottom: 2px solid #00ffcc44;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
         .header-hud {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
             letter-spacing: 2px;
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
@@ -66,73 +67,74 @@
             gap: 25px;
         }
         .status-hud {
-            font-size: 20px;
+            font-size: 22px;
             display: flex;
             gap: 25px;
-            text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
 
-        /* Tombol Fire Transparan Floating di Kanan (Mobile) */
+        /* Tombol Fire Translucent Futuristik */
         .mobile-fire-btn {
             position: absolute;
             bottom: 35px;
             right: 35px;
-            width: 90px;
-            height: 90px;
-            background: rgba(255, 0, 127, 0.35);
-            border: 2px solid rgba(255, 51, 153, 0.7);
-            color: rgba(255, 255, 255, 0.9);
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 0, 127, 0.25);
+            border: 3px solid rgba(255, 51, 153, 0.8);
+            color: #ffffff;
             font-family: 'VT323', monospace;
-            font-size: 26px;
+            font-size: 28px;
             font-weight: bold;
             border-radius: 50%;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4), inset 0 0 10px rgba(255, 0, 127, 0.3);
             cursor: pointer;
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 15;
-            transition: background 0.1s, transform 0.1s;
+            transition: transform 0.1s, background 0.1s;
         }
         .mobile-fire-btn:active {
-            background: rgba(255, 0, 127, 0.7);
+            background: rgba(255, 0, 127, 0.6);
             transform: scale(0.92);
         }
 
-        /* Floating Joystick Visual (Mobile) */
+        /* Floating Joystick Visual Dinamis */
         #virtual-joystick {
             position: absolute;
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            background: rgba(0, 255, 204, 0.1);
-            border: 2px solid rgba(0, 255, 204, 0.3);
+            background: rgba(0, 255, 204, 0.08);
+            border: 2px solid rgba(0, 255, 204, 0.35);
             transform: translate(-50%, -50%);
             display: none;
             pointer-events: none;
             z-index: 15;
+            box-shadow: 0 0 15px rgba(0,255,204,0.1);
         }
         #joystick-thumb-fluid {
             position: absolute;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: rgba(0, 255, 204, 0.6);
+            background: rgba(0, 255, 204, 0.75);
             border: 2px solid #ffffff;
-            top: 37.5px;
-            left: 37.5px;
-            box-shadow: 0 0 12px rgba(0, 255, 204, 0.8);
+            top: 40px;
+            left: 40px;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.9);
         }
 
-        /* Layar Peringatan Rotasi HP */
+        /* Layar Notifikasi Rotasi HP */
         #rotateNotice {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #030305;
+            background: #020205;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -143,14 +145,14 @@
         }
         #rotateNotice h2 {
             color: #ff007f;
-            font-size: 32px;
+            font-size: 34px;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255,0,127,0.6);
+            text-shadow: 0 0 12px rgba(255,0,127,0.7);
         }
         #rotateNotice p {
             color: #00ffcc;
-            font-size: 18px;
-            line-height: 1.4;
+            font-size: 19px;
+            line-height: 1.5;
         }
 
         .screen {
@@ -159,7 +161,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(3, 3, 5, 0.96);
+            background: rgba(2, 2, 5, 0.97);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -169,36 +171,37 @@
             z-index: 20;
         }
         h1 {
-            font-size: 64px;
+            font-size: 68px;
             margin-bottom: 5px;
             color: #ff007f;
-            text-shadow: 0 0 25px rgba(255, 0, 127, 0.8);
-            letter-spacing: 3px;
+            text-shadow: 0 0 30px rgba(255, 0, 127, 0.85);
+            letter-spacing: 4px;
         }
         p {
             color: #00ffcc;
-            font-size: 20px;
+            font-size: 21px;
             margin-bottom: 30px;
             letter-spacing: 1px;
-            line-height: 1.5;
-            text-shadow: 0 0 6px rgba(0, 255, 204, 0.4);
+            line-height: 1.6;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
         }
         .btn {
             background: #00ffcc;
-            color: #030305;
+            color: #020205;
             border: none;
-            padding: 12px 40px;
+            padding: 14px 45px;
             font-family: 'VT323', monospace;
-            font-size: 30px;
+            font-size: 32px;
             font-weight: bold;
             letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-            transition: all 0.1s;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.6);
+            transition: all 0.15s;
         }
         .btn:active {
             transform: scale(0.95);
             background: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
         .hidden {
             display: none !important;
@@ -210,7 +213,7 @@
     <!-- Layar Peringatan Rotasi HP -->
     <div id="rotateNotice">
         <h2>🔄 PLEASE ROTATE YOUR DEVICE</h2>
-        <p>For the best immersive arcade experience, please rotate your smartphone to <b>Landscape</b> mode.</p>
+        <p>Operation Frontline requires <b>Landscape</b> mode for optimal tactical combat.</p>
     </div>
 
     <div id="game-container">
@@ -218,36 +221,43 @@
         <div class="ui-layer">
             <div class="header-hud">
                 <span id="scoreDisplay">SCORE: 0000</span>
-                <span id="waveDisplay" style="color: #ff007f;">WAVE 1</span>
+                <span id="levelDisplay" style="color: #00ffcc;">LEVEL 1-1</span>
             </div>
             <div class="status-hud">
                 <span id="livesDisplay">LIVES: 3 💚</span>
-                <span id="enemiesLeft">ENEMIES: 10</span>
+                <span id="enemiesLeft">ENEMIES: 6</span>
             </div>
         </div>
 
         <!-- Canvas Game Full Screen -->
         <canvas id="gameCanvas"></canvas>
 
-        <!-- Floating Joystick Visual (Mobile) -->
+        <!-- Floating Joystick Visual -->
         <div id="virtual-joystick">
             <div id="joystick-thumb-fluid"></div>
         </div>
 
-        <!-- Tombol Fire Translucent Mobile -->
+        <!-- Tombol Fire Translucent -->
         <button id="mobileFireBtn" class="mobile-fire-btn">FIRE</button>
 
         <!-- Start Screen -->
         <div id="startScreen" class="screen">
             <h1>CYBER TANK</h1>
-            <p id="guideText">Protect the Base • Destroy Enemy Tanks</p>
-            <button class="btn" onclick="startGame()">START BATTLE</button>
+            <p id="guideText">Infiltrate Enemy Lines • Clear Waves • Destroy Level 5 Base</p>
+            <button class="btn" onclick="startGame()">DEPLOY TO BATTLE</button>
         </div>
 
         <!-- Game Over Screen -->
         <div id="gameOverScreen" class="screen hidden">
-            <h1 style="color: #ff3333; text-shadow: 0 0 15px rgba(255,51,51,0.7);">GAME OVER</h1>
-            <p id="finalScoreText" style="color: #8b949e;">BASE DESTROYED OR LIVES LOST</p>
+            <h1 style="color: #ff3333; text-shadow: 0 0 20px rgba(255,51,51,0.8);">MISSION FAILED</h1>
+            <p id="finalScoreText" style="color: #94a3b8;">YOUR TANK WAS DESTROYED IN COMBAT</p>
+            <button class="btn" onclick="startGame()">RE-DEPLOY</button>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victoryScreen" class="screen hidden">
+            <h1 style="color: #facc15; text-shadow: 0 0 25px rgba(250,204,21,0.9);">VICTORY!</h1>
+            <p id="victoryScoreText" style="color: #00ffcc;">ENEMY BASE OBLITERATED. FRONTLINE SECURED.</p>
             <button class="btn" onclick="startGame()">PLAY AGAIN</button>
         </div>
     </div>
@@ -270,12 +280,12 @@
                 } else {
                     document.getElementById('rotateNotice').style.display = 'none';
                     document.getElementById('mobileFireBtn').style.display = 'flex';
-                    document.getElementById('guideText').innerHTML = "Defend the Base • Touch Left Screen to Move & Right Fire to Shoot";
+                    document.getElementById('guideText').innerHTML = "Infiltrate Enemy Lines • Touch Left Screen to Move & Right Fire to Shoot";
                 }
             } else {
                 document.getElementById('rotateNotice').style.display = 'none';
                 document.getElementById('mobileFireBtn').style.display = 'none';
-                document.getElementById('guideText').innerHTML = "Defend the Base • Destroy Enemy Tanks<br><span style='color:#ffb86c; font-size:18px;'>Move: WASD / Arrow Keys &nbsp;|&nbsp; Shoot: Spacebar</span>";
+                document.getElementById('guideText').innerHTML = "Infiltrate Enemy Lines • Clear Waves • Destroy Level 5 Base<br><span style='color:#ffb86c; font-size:18px;'>Move: WASD / Arrow Keys &nbsp;|&nbsp; Shoot: Spacebar</span>";
             }
             resizeCanvas();
         }
@@ -297,10 +307,9 @@
             startBGM();
         }
 
-        // Musik Latar Belakang Synthwave Retro (*BGM Arpeggio Aktif*)
         function startBGM() {
             if (bgmInterval) return;
-            const bassNotes = [110, 123.47, 130.81, 146.83, 164.81, 196];
+            const bassNotes = [98.00, 110.00, 123.47, 146.83];
             let step = 0;
 
             bgmInterval = setInterval(() => {
@@ -313,20 +322,20 @@
 
                     let filter = audioCtx.createBiquadFilter();
                     filter.type = "lowpass";
-                    filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+                    filter.frequency.setValueAtTime(600, audioCtx.currentTime);
 
-                    gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.22);
+                    gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
 
                     osc.connect(filter);
                     filter.connect(gain);
                     gain.connect(audioCtx.destination);
 
                     osc.start();
-                    osc.stop(audioCtx.currentTime + 0.22);
+                    osc.stop(audioCtx.currentTime + 0.25);
                     step++;
                 } catch(e) {}
-            }, 250);
+            }, 240);
         }
 
         function stopAudio() {
@@ -347,36 +356,36 @@
 
                 if (type === "shoot") {
                     osc.type = "square";
-                    osc.frequency.setValueAtTime(500, now);
-                    osc.frequency.exponentialRampToValueAtTime(100, now + 0.08);
+                    osc.frequency.setValueAtTime(520, now);
+                    osc.frequency.exponentialRampToValueAtTime(90, now + 0.08);
                     gain.gain.setValueAtTime(0.08, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
                     osc.start(now);
                     osc.stop(now + 0.08);
                 } else if (type === "explode") {
                     osc.type = "sawtooth";
-                    osc.frequency.setValueAtTime(150, now);
-                    osc.frequency.linearRampToValueAtTime(25, now + 0.35);
-                    gain.gain.setValueAtTime(0.2, now);
+                    osc.frequency.setValueAtTime(160, now);
+                    osc.frequency.linearRampToValueAtTime(20, now + 0.4);
+                    gain.gain.setValueAtTime(0.22, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                } else if (type === "wave_clear") {
+                    osc.type = "sine";
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.exponentialRampToValueAtTime(950, now + 0.35);
+                    gain.gain.setValueAtTime(0.12, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
                     osc.start(now);
                     osc.stop(now + 0.35);
-                } else if (type === "wave_clear") {
-                    osc.type = "sine";
-                    osc.frequency.setValueAtTime(350, now);
-                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.3);
-                    gain.gain.setValueAtTime(0.12, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
-                    osc.start(now);
-                    osc.stop(now + 0.3);
                 } else if (type === "gameover") {
                     osc.type = "sawtooth";
-                    osc.frequency.setValueAtTime(170, now);
-                    osc.frequency.linearRampToValueAtTime(20, now + 0.65);
+                    osc.frequency.setValueAtTime(180, now);
+                    osc.frequency.linearRampToValueAtTime(15, now + 0.7);
                     gain.gain.setValueAtTime(0.25, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
                     osc.start(now);
-                    osc.stop(now + 0.65);
+                    osc.stop(now + 0.7);
                 }
             } catch (e) {}
         }
@@ -384,25 +393,25 @@
         let isPlaying = false;
         let score = 0;
         let lives = 3;
-        let wave = 1;
-        let enemiesRemaining = 10;
-        let baseDestroyed = false;
+        let level = 1; // 1 sampai 5
+        let wave = 1;  // 1 atau 2
+        let enemiesRemaining = 6;
 
         let player = {
             x: 0, y: 0,
-            size: 34,
-            speed: 3.6, // Kecepatan gerak lebih lincah dan responsif
+            size: 36,
+            speed: 3.8,
             dir: 'UP'
         };
 
-        let base = { x: 0, y: 0, size: 34, alive: true };
+        let enemyBase = null; // Muncul khusus di Level 5
         let bullets = [];
         let enemies = [];
         let walls = [];
         let particles = [];
         let enemySpawnTimer = 0;
 
-        // --- Logika Floating Joystick Sensitivitas Tinggi ---
+        // --- Logika Floating Joystick Terpasti Sempurna (Full Left Screen Detection) ---
         let joystickVector = { x: 0, y: 0 };
         let joystickActive = false;
         let joystickTouchId = null;
@@ -414,6 +423,7 @@
             if (!isPlaying || !isTouchDevice) return;
             for (let i = 0; i < e.changedTouches.length; i++) {
                 let touch = e.changedTouches[i];
+                // Sentuhan di setengah sisi kiri layar mengaktifkan joystick
                 if (touch.clientX < window.innerWidth / 2 && !joystickActive) {
                     joystickActive = true;
                     joystickTouchId = touch.identifier;
@@ -447,7 +457,6 @@
                     }
 
                     thumbEl.style.transform = `translate(${dx}px, ${dy}px)`;
-                    // Sensitivitas dipertinggi dengan pengali responsif
                     joystickVector.x = dx / maxRadius;
                     joystickVector.y = dy / maxRadius;
                 }
@@ -473,7 +482,6 @@
             playerFire();
         });
 
-        // Kontrol Keyboard Laptop
         let keys = {};
         window.addEventListener('keydown', e => {
             if (!isPlaying) return;
@@ -490,12 +498,12 @@
         function playerFire() {
             if (!isPlaying) return;
             let playerBullets = bullets.filter(b => b.isPlayer);
-            if (playerBullets.length < 3) { // Maksimal 3 peluru aktif agar bisa menembak lebih leluasa
+            if (playerBullets.length < 3) {
                 playSound("shoot");
                 let bx = player.x + player.size / 2 - 3;
                 let by = player.y + player.size / 2 - 3;
                 let vx = 0, vy = 0;
-                let speed = 8;
+                let speed = 8.5;
 
                 if (player.dir === 'UP') vy = -speed;
                 else if (player.dir === 'DOWN') vy = speed;
@@ -509,27 +517,38 @@
         function initLevel() {
             resizeCanvas();
             player.x = canvas.width / 2 - 50;
-            player.y = canvas.height - 80;
+            player.y = canvas.height - 90;
             player.dir = 'UP';
-
-            base.x = canvas.width / 2 - 17;
-            base.y = canvas.height - 45;
-            base.alive = true;
-            baseDestroyed = false;
 
             bullets = [];
             enemies = [];
             particles = [];
-            enemiesRemaining = 8 + (wave * 2);
+            enemyBase = null;
 
+            // Jumlah musuh meningkat tiap level
+            enemiesRemaining = 4 + (level * 2);
+
+            // Jika di level 5 dan wave 2, munculkan Base Lawan di atas tengah
+            if (level === 5 && wave === 2) {
+                enemyBase = {
+                    x: canvas.width / 2 - 45,
+                    y: 70,
+                    w: 90,
+                    h: 50,
+                    health: 15,
+                    maxHealth: 15
+                };
+                enemiesRemaining = 0; // Tidak ada tank musuh di wave final level 5, fokus hancurkan base!
+            }
+
+            // Buat barikade / tembok penghalang pertempuran
             walls = [];
-            let cols = Math.floor(canvas.width / 50);
-            let rows = Math.floor(canvas.height / 50);
+            let cols = Math.floor(canvas.width / 60);
+            let rows = Math.floor(canvas.height / 60);
             for (let r = 2; r < rows - 3; r++) {
                 for (let c = 1; c < cols - 1; c++) {
-                    let distToBase = Math.hypot((c * 50) - base.x, (r * 50) - base.y);
-                    if (distToBase > 90 && Math.random() > 0.42) {
-                        walls.push({ x: c * 50, y: r * 50, w: 42, h: 18 });
+                    if (Math.random() > 0.48) {
+                        walls.push({ x: c * 60, y: r * 60, w: 50, h: 20 });
                     }
                 }
             }
@@ -539,9 +558,11 @@
             initAudio();
             document.getElementById("startScreen").classList.add("hidden");
             document.getElementById("gameOverScreen").classList.add("hidden");
+            document.getElementById("victoryScreen").classList.add("hidden");
             
             score = 0;
             lives = 3;
+            level = 1;
             wave = 1;
             isPlaying = true;
             initLevel();
@@ -555,14 +576,21 @@
             document.getElementById("gameOverScreen").classList.remove("hidden");
         }
 
+        function victory() {
+            isPlaying = false;
+            stopAudio();
+            playSound("wave_clear");
+            document.getElementById("victoryScreen").classList.remove("hidden");
+        }
+
         function spawnEnemy() {
-            if (enemies.length < 3 + Math.floor(wave/2) && enemiesRemaining > 0) {
-                let spawnX = Math.random() > 0.5 ? 40 : canvas.width - 80;
+            if (enemies.length < 3 + Math.floor(level/2) && enemiesRemaining > 0) {
+                let spawnX = Math.random() > 0.5 ? 50 : canvas.width - 100;
                 enemies.push({
                     x: spawnX,
-                    y: 60,
-                    size: 34,
-                    speed: 1.3 + (wave * 0.1),
+                    y: 70,
+                    size: 36,
+                    speed: 1.1 + (level * 0.15),
                     dir: 'DOWN',
                     shootTimer: 0
                 });
@@ -574,9 +602,9 @@
             for (let i = 0; i < count; i++) {
                 particles.push({
                     x: x, y: y,
-                    vx: (Math.random() - 0.5) * 6,
-                    vy: (Math.random() - 0.5) * 6,
-                    radius: Math.random() * 3.5 + 1,
+                    vx: (Math.random() - 0.5) * 7,
+                    vy: (Math.random() - 0.5) * 7,
+                    radius: Math.random() * 4 + 1,
                     color: color,
                     alpha: 1
                 });
@@ -599,10 +627,10 @@
             } else if (keys['KeyD'] || keys['ArrowRight']) {
                 player.dir = 'RIGHT'; nextX += player.speed;
             } 
-            // Gerakan Floating Joystick HP (Sensitivitas Tinggi)
+            // Gerakan Floating Joystick HP
             else if (joystickActive) {
-                nextX += joystickVector.x * player.speed * 1.1;
-                nextY += joystickVector.y * player.speed * 1.1;
+                nextX += joystickVector.x * player.speed * 1.15;
+                nextY += joystickVector.y * player.speed * 1.15;
 
                 if (Math.abs(joystickVector.x) > Math.abs(joystickVector.y)) {
                     player.dir = joystickVector.x > 0 ? 'RIGHT' : 'LEFT';
@@ -617,11 +645,15 @@
                 player.y = nextY;
             }
 
-            enemySpawnTimer++;
-            if (enemySpawnTimer % 80 === 0) {
-                spawnEnemy();
+            // Spawn Musuh (Jika bukan wave final level 5)
+            if (!(level === 5 && wave === 2)) {
+                enemySpawnTimer++;
+                if (enemySpawnTimer % 75 === 0) {
+                    spawnEnemy();
+                }
             }
 
+            // Update Musuh
             for (let en of enemies) {
                 if (Math.random() < 0.035) {
                     let dirs = ['UP', 'DOWN', 'LEFT', 'RIGHT'];
@@ -641,7 +673,7 @@
                 if (en.y < 60 || en.y + en.size > canvas.height - 20) en.y -= evy;
 
                 en.shootTimer++;
-                if (en.shootTimer > 70) {
+                if (en.shootTimer > 65) {
                     en.shootTimer = 0;
                     let ebx = en.x + en.size / 2 - 3;
                     let eteby = en.y + en.size / 2 - 3;
@@ -656,6 +688,7 @@
                 }
             }
 
+            // Update Peluru
             for (let i = bullets.length - 1; i >= 0; i--) {
                 let b = bullets[i];
                 b.x += b.vx;
@@ -683,6 +716,22 @@
                 }
 
                 if (b.isPlayer) {
+                    // Cek Tabrakan Peluru Player dengan Base Lawan (Level 5 Wave 2)
+                    if (enemyBase && b.x < enemyBase.x + enemyBase.w && b.x + b.size > enemyBase.x &&
+                        b.y < enemyBase.y + enemyBase.h && b.y + b.size > enemyBase.y) {
+                        enemyBase.health--;
+                        playSound("explode");
+                        createParticles(b.x, b.y, "#ff007f", 10);
+                        bullets.splice(i, 1);
+                        if (enemyBase.health <= 0) {
+                            createParticles(enemyBase.x + enemyBase.w/2, enemyBase.y + enemyBase.h/2, "#facc15", 50);
+                            victory();
+                            return;
+                        }
+                        continue;
+                    }
+
+                    // Cek Tabrakan Peluru Player dengan Musuh
                     let hitEnemy = false;
                     for (let e = enemies.length - 1; e >= 0; e--) {
                         let en = enemies[e];
@@ -690,14 +739,27 @@
                             b.y < en.y + en.size && b.y + b.size > en.y) {
                             enemies.splice(e, 1);
                             hitEnemy = true;
-                            score += 100;
+                            score += 150;
                             playSound("explode");
-                            createParticles(en.x + en.size/2, en.y + en.size/2, "#ff007f", 20);
+                            createParticles(en.x + en.size/2, en.y + en.size/2, "#ff007f", 22);
                             
+                            // Cek Ganti Wave atau Level
                             if (enemies.length === 0 && enemiesRemaining === 0) {
-                                wave++;
                                 playSound("wave_clear");
-                                initLevel();
+                                if (wave === 1) {
+                                    wave = 2; // Naik ke wave 2 di level yang sama
+                                    initLevel();
+                                } else {
+                                    if (level < 5) {
+                                        level++;
+                                        wave = 1; // Naik ke level berikutnya, kembali ke wave 1
+                                        initLevel();
+                                    } else {
+                                        // Jika selesai wave 2 di level 5 tapi base belum hancur (persiapan boss base)
+                                        wave = 2;
+                                        initLevel();
+                                    }
+                                }
                             }
                             break;
                         }
@@ -707,6 +769,7 @@
                         continue;
                     }
                 } else {
+                    // Peluru Musuh mengenai Player
                     if (b.x < player.x + player.size && b.x + b.size > player.x &&
                         b.y < player.y + player.size && b.y + b.size > player.y) {
                         lives--;
@@ -718,19 +781,9 @@
                             return;
                         } else {
                             player.x = canvas.width / 2 - 50;
-                            player.y = canvas.height - 80;
+                            player.y = canvas.height - 90;
                         }
                         continue;
-                    }
-
-                    if (base.alive && b.x < base.x + base.size && b.x + b.size > base.x &&
-                        b.y < base.y + base.size && b.y + b.size > base.y) {
-                        base.alive = false;
-                        baseDestroyed = true;
-                        playSound("explode");
-                        createParticles(base.x + base.size/2, base.y + base.size/2, "#ff3333", 40);
-                        gameOver();
-                        return;
                     }
                 }
             }
@@ -742,7 +795,7 @@
             }
         }
 
-        // FUNGSI RENDER TANK ESTETIK TINGGI (Desain Detail Modern Neo-Retro)
+        // Render Tank Estetik Masterpiece
         function drawTank(x, y, size, dir, color, isPlayer) {
             ctx.save();
             ctx.translate(x + size / 2, y + size / 2);
@@ -753,36 +806,36 @@
             else if (dir === 'RIGHT') angle = Math.PI / 2;
             ctx.rotate(angle);
 
-            // Bayangan Tank
-            ctx.fillStyle = "rgba(0,0,0,0.4)";
-            ctx.fillRect(-size/2 + 2, -size/2 + 2, size, size);
+            // Bayangan
+            ctx.fillStyle = "rgba(0,0,0,0.5)";
+            ctx.fillRect(-size/2 + 3, -size/2 + 3, size, size);
 
-            // Trek Roda Kiri & Kanan (Dilengkapi garis tekstur)
-            ctx.fillStyle = "#111827";
+            // Trek Roda
+            ctx.fillStyle = "#0f172a";
             ctx.fillRect(-size/2, -size/2, 8, size);
             ctx.fillRect(size/2 - 8, -size/2, 8, size);
-            ctx.fillStyle = "#374151";
+            ctx.fillStyle = "#334155";
             ctx.fillRect(-size/2 + 2, -size/2 + 4, 4, size - 8);
             ctx.fillRect(size/2 - 6, -size/2 + 4, 4, size - 8);
 
-            // Bodi Utama Tank (Gradasi Neon Halus)
+            // Bodi Tank
             ctx.fillStyle = color;
             ctx.fillRect(-size/2 + 8, -size/2 + 4, size - 16, size - 8);
             
-            // Aksen Armor Tengah
+            // Armor Tengah
             ctx.fillStyle = isPlayer ? "#00b38f" : "#b30047";
             ctx.fillRect(-size/2 + 10, -size/2 + 8, size - 20, size - 16);
 
-            // Laras Meriam (Keren & Proporsional)
+            // Meriam
             ctx.fillStyle = isPlayer ? "#ffffff" : "#ff3333";
-            ctx.fillRect(-3.5, -size/2 - 11, 7, 22);
-            ctx.fillStyle = "#090a0f";
-            ctx.fillRect(-1.5, -size/2 - 11, 3, 4);
+            ctx.fillRect(-3.5, -size/2 - 12, 7, 24);
+            ctx.fillStyle = "#05050a";
+            ctx.fillRect(-1.5, -size/2 - 12, 3, 5);
 
-            // Kubah / Turret Center (Pusat Putar)
-            ctx.fillStyle = "#090a0f";
+            // Kubah Turret
+            ctx.fillStyle = "#05050a";
             ctx.beginPath();
-            ctx.arc(0, 0, 8, 0, Math.PI * 2);
+            ctx.arc(0, 0, 8.5, 0, Math.PI * 2);
             ctx.fill();
             ctx.strokeStyle = color;
             ctx.lineWidth = 2;
@@ -794,36 +847,48 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Grid Latar Belakang Estetik
-            ctx.strokeStyle = "#161b22";
+            // Grid Parallax / Latar Belakang Cyber
+            ctx.strokeStyle = "#111827";
             ctx.lineWidth = 1.2;
-            for (let x = 0; x < canvas.width; x += 50) {
+            for (let x = 0; x < canvas.width; x += 60) {
                 ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
             }
-            for (let y = 0; y < canvas.height; y += 50) {
+            for (let y = 0; y < canvas.height; y += 60) {
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
 
-            // Dinding Bata Estetik
-            for (let wall of walls) {
-                ctx.fillStyle = "#f59e0b";
-                ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
-                ctx.strokeStyle = "#78350f";
-                ctx.lineWidth = 1.5;
-                ctx.strokeRect(wall.x, wall.y, wall.w, wall.h);
+            // Render Base Lawan jika di Level 5 Wave 2
+            if (enemyBase) {
+                ctx.fillStyle = "#7f1d1d";
+                ctx.fillRect(enemyBase.x, enemyBase.y, enemyBase.w, enemyBase.h);
+                ctx.strokeStyle = "#ef4444";
+                ctx.lineWidth = 3;
+                ctx.strokeRect(enemyBase.x, enemyBase.y, enemyBase.w, enemyBase.h);
+
+                // Inti Reaktor Base Berdenyut
+                ctx.fillStyle = "#facc15";
+                ctx.fillRect(enemyBase.x + 15, enemyBase.y + 12, enemyBase.w - 30, enemyBase.h - 24);
+                
+                // Teks Boss Base & Bar Darah
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 16px 'VT323', monospace";
+                ctx.textAlign = "center";
+                ctx.fillText("ENEMY COMMAND BASE", enemyBase.x + enemyBase.w/2, enemyBase.y - 10);
+
+                // Health bar base
+                ctx.fillStyle = "#111827";
+                ctx.fillRect(enemyBase.x, enemyBase.y - 30, enemyBase.w, 10);
+                ctx.fillStyle = "#ef4444";
+                ctx.fillRect(enemyBase.x, enemyBase.y - 30, enemyBase.w * (enemyBase.health / enemyBase.maxHealth), 10);
             }
 
-            // Markas Base Estetik
-            if (base.alive) {
-                ctx.fillStyle = "#00ffcc";
-                ctx.fillRect(base.x, base.y, base.size, base.size);
-                ctx.fillStyle = "#ff007f";
-                ctx.fillRect(base.x + 6, base.y + 6, base.size - 12, base.size - 12);
-                ctx.fillStyle = "#ffffff";
-                ctx.font = "bold 13px 'VT323', monospace";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText("BASE", base.x + base.size/2, base.y + base.size/2);
+            // Render Dinding / Barikade
+            for (let wall of walls) {
+                ctx.fillStyle = "#d97706";
+                ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
+                ctx.strokeStyle = "#451a03";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(wall.x, wall.y, wall.w, wall.h);
             }
 
             for (let p of particles) {
@@ -836,14 +901,14 @@
                 ctx.restore();
             }
 
-            // Gambar Tank Pemain & Musuh
+            // Render Tank Player & Musuh
             drawTank(player.x, player.y, player.size, player.dir, "#00ffcc", true);
 
             for (let en of enemies) {
                 drawTank(en.x, en.y, en.size, en.dir, "#ff0066", false);
             }
 
-            // Gambar Peluru
+            // Render Peluru
             for (let b of bullets) {
                 ctx.fillStyle = b.isPlayer ? "#facc15" : "#ef4444";
                 ctx.beginPath();
@@ -851,16 +916,21 @@
                 ctx.fill();
             }
 
-            // Efek Scanline CRT Arcade
-            ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
+            // Efek Scanline CRT Masterpiece
+            ctx.fillStyle = "rgba(0, 0, 0, 0.14)";
             for (let sy = 0; sy < canvas.height; sy += 4) {
                 ctx.fillRect(0, sy, canvas.width, 1);
             }
 
             document.getElementById("scoreDisplay").innerText = `SCORE: ${Math.floor(score).toString().padStart(4, '0')}`;
-            document.getElementById("waveDisplay").innerText = `WAVE ${wave}`;
+            if (level === 5 && wave === 2) {
+                document.getElementById("levelDisplay" ).innerText = `FINAL MISSION: DESTROY BASE`;
+                document.getElementById("enemiesLeft").innerText = `BASE HP: ${enemyBase.health}`;
+            } else {
+                document.getElementById("levelDisplay").innerText = `LEVEL ${level} - WAVE ${wave}`;
+                document.getElementById("enemiesLeft").innerText = `ENEMIES: ${enemiesRemaining + enemies.length}`;
+            }
             document.getElementById("livesDisplay").innerText = `LIVES: ${lives} 💚`;
-            document.getElementById("enemiesLeft").innerText = `ENEMIES: ${enemiesRemaining + enemies.length}`;
         }
 
         function loop() {
