@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cyber Tank: Operation Frontline</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=VT323&display=swap');
 
         * {
             box-sizing: border-box;
@@ -18,7 +18,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #020205;
+            background-color: #010103;
             font-family: 'VT323', monospace;
             color: #00ffcc;
             display: flex;
@@ -30,7 +30,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            background: #05050a;
+            background: #030408;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -39,102 +39,107 @@
             display: block;
             width: 100%;
             height: 100%;
-            background: #0a0e17;
+            background: #060913;
         }
         
-        /* HUD UI Atas Modern */
+        /* UI HUD Cyberpunk High-End */
         .ui-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 12px 25px;
+            padding: 14px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             pointer-events: none;
             z-index: 5;
-            background: linear-gradient(to bottom, rgba(5, 5, 10, 0.95), rgba(5, 5, 10, 0.6));
-            border-bottom: 2px solid #00ffcc44;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            background: linear-gradient(180deg, rgba(3, 4, 8, 0.95) 0%, rgba(3, 4, 8, 0.4) 100%);
+            border-bottom: 2px solid #00ffcc33;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
         .header-hud {
-            font-size: 24px;
-            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
+            color: #00ffcc;
+            text-shadow: 0 0 12px rgba(0, 255, 204, 0.8);
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
         .status-hud {
-            font-size: 22px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
             display: flex;
-            gap: 25px;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            gap: 30px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
         }
 
         /* Tombol Fire Translucent Futuristik */
         .mobile-fire-btn {
             position: absolute;
-            bottom: 35px;
-            right: 35px;
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 0, 127, 0.25);
-            border: 3px solid rgba(255, 51, 153, 0.8);
+            bottom: 40px;
+            right: 40px;
+            width: 110px;
+            height: 110px;
+            background: rgba(255, 0, 127, 0.2);
+            border: 3px solid rgba(255, 51, 153, 0.75);
             color: #ffffff;
-            font-family: 'VT323', monospace;
-            font-size: 28px;
-            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
             border-radius: 50%;
-            backdrop-filter: blur(6px);
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4), inset 0 0 10px rgba(255, 0, 127, 0.3);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.4), inset 0 0 12px rgba(255, 0, 127, 0.3);
             cursor: pointer;
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 15;
-            transition: transform 0.1s, background 0.1s;
+            transition: transform 0.08s, background 0.08s;
         }
         .mobile-fire-btn:active {
-            background: rgba(255, 0, 127, 0.6);
+            background: rgba(255, 0, 127, 0.65);
             transform: scale(0.92);
         }
 
-        /* Floating Joystick Visual Dinamis */
+        /* Floating Joystick Fluid Modern */
         #virtual-joystick {
             position: absolute;
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            background: rgba(0, 255, 204, 0.08);
-            border: 2px solid rgba(0, 255, 204, 0.35);
+            background: rgba(0, 255, 204, 0.06);
+            border: 2px solid rgba(0, 255, 204, 0.3);
             transform: translate(-50%, -50%);
             display: none;
             pointer-events: none;
             z-index: 15;
-            box-shadow: 0 0 15px rgba(0,255,204,0.1);
+            box-shadow: 0 0 20px rgba(0,255,204,0.15);
         }
         #joystick-thumb-fluid {
             position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background: rgba(0, 255, 204, 0.75);
+            background: rgba(0, 255, 204, 0.8);
             border: 2px solid #ffffff;
-            top: 40px;
-            left: 40px;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.9);
+            top: 42.5px;
+            left: 42.5px;
+            box-shadow: 0 0 18px rgba(0, 255, 204, 0.95);
         }
 
-        /* Layar Notifikasi Rotasi HP */
+        /* Layar Peringatan Rotasi HP */
         #rotateNotice {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #020205;
+            background: #010103;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -144,14 +149,15 @@
             z-index: 100;
         }
         #rotateNotice h2 {
+            font-family: 'Orbitron', sans-serif;
             color: #ff007f;
-            font-size: 34px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 12px rgba(255,0,127,0.7);
+            font-size: 28px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 15px rgba(255,0,127,0.7);
         }
         #rotateNotice p {
             color: #00ffcc;
-            font-size: 19px;
+            font-size: 18px;
             line-height: 1.5;
         }
 
@@ -161,7 +167,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(2, 2, 5, 0.97);
+            background: rgba(2, 2, 5, 0.98);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -171,37 +177,39 @@
             z-index: 20;
         }
         h1 {
-            font-size: 68px;
-            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 10px;
             color: #ff007f;
-            text-shadow: 0 0 30px rgba(255, 0, 127, 0.85);
+            text-shadow: 0 0 35px rgba(255, 0, 127, 0.9);
             letter-spacing: 4px;
         }
         p {
             color: #00ffcc;
-            font-size: 21px;
-            margin-bottom: 30px;
+            font-size: 22px;
+            margin-bottom: 35px;
             letter-spacing: 1px;
             line-height: 1.6;
-            text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
         }
         .btn {
+            font-family: 'Orbitron', sans-serif;
             background: #00ffcc;
-            color: #020205;
+            color: #010103;
             border: none;
-            padding: 14px 45px;
-            font-family: 'VT323', monospace;
-            font-size: 32px;
-            font-weight: bold;
+            padding: 16px 50px;
+            font-size: 22px;
+            font-weight: 700;
             letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.6);
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.6);
             transition: all 0.15s;
         }
         .btn:active {
             transform: scale(0.95);
             background: #ffffff;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
         }
         .hidden {
             display: none !important;
@@ -212,7 +220,7 @@
 
     <!-- Layar Peringatan Rotasi HP -->
     <div id="rotateNotice">
-        <h2>🔄 PLEASE ROTATE YOUR DEVICE</h2>
+        <h2>🔄 ROTATE DEVICE</h2>
         <p>Operation Frontline requires <b>Landscape</b> mode for optimal tactical combat.</p>
     </div>
 
@@ -221,9 +229,10 @@
         <div class="ui-layer">
             <div class="header-hud">
                 <span id="scoreDisplay">SCORE: 0000</span>
-                <span id="levelDisplay" style="color: #00ffcc;">LEVEL 1-1</span>
+                <span id="levelDisplay" style="color: #00ffcc;">LVL 1-1</span>
             </div>
             <div class="status-hud">
+                <span id="powerupStatus" style="color: #facc15; font-size:16px;"></span>
                 <span id="livesDisplay">LIVES: 3 💚</span>
                 <span id="enemiesLeft">ENEMIES: 6</span>
             </div>
@@ -243,20 +252,20 @@
         <!-- Start Screen -->
         <div id="startScreen" class="screen">
             <h1>CYBER TANK</h1>
-            <p id="guideText">Infiltrate Enemy Lines • Clear Waves • Destroy Level 5 Base</p>
-            <button class="btn" onclick="startGame()">DEPLOY TO BATTLE</button>
+            <p id="guideText">Infiltrate Enemy Lines • Collect Power-ups • Destroy Level 5 Base</p>
+            <button class="btn" onclick="startGame()">DEPLOY</button>
         </div>
 
         <!-- Game Over Screen -->
         <div id="gameOverScreen" class="screen hidden">
-            <h1 style="color: #ff3333; text-shadow: 0 0 20px rgba(255,51,51,0.8);">MISSION FAILED</h1>
+            <h1 style="color: #ff3333; text-shadow: 0 0 25px rgba(255,51,51,0.9);">MISSION FAILED</h1>
             <p id="finalScoreText" style="color: #94a3b8;">YOUR TANK WAS DESTROYED IN COMBAT</p>
             <button class="btn" onclick="startGame()">RE-DEPLOY</button>
         </div>
 
         <!-- Victory Screen -->
         <div id="victoryScreen" class="screen hidden">
-            <h1 style="color: #facc15; text-shadow: 0 0 25px rgba(250,204,21,0.9);">VICTORY!</h1>
+            <h1 style="color: #facc15; text-shadow: 0 0 30px rgba(250,204,21,1);">VICTORY!</h1>
             <p id="victoryScoreText" style="color: #00ffcc;">ENEMY BASE OBLITERATED. FRONTLINE SECURED.</p>
             <button class="btn" onclick="startGame()">PLAY AGAIN</button>
         </div>
@@ -285,7 +294,7 @@
             } else {
                 document.getElementById('rotateNotice').style.display = 'none';
                 document.getElementById('mobileFireBtn').style.display = 'none';
-                document.getElementById('guideText').innerHTML = "Infiltrate Enemy Lines • Clear Waves • Destroy Level 5 Base<br><span style='color:#ffb86c; font-size:18px;'>Move: WASD / Arrow Keys &nbsp;|&nbsp; Shoot: Spacebar</span>";
+                document.getElementById('guideText').innerHTML = "Infiltrate Enemy Lines • Collect Power-ups • Destroy Level 5 Base<br><span style='color:#ffb86c; font-size:18px;'>Move: WASD / Arrow Keys &nbsp;|&nbsp; Shoot: Spacebar</span>";
             }
             resizeCanvas();
         }
@@ -322,9 +331,9 @@
 
                     let filter = audioCtx.createBiquadFilter();
                     filter.type = "lowpass";
-                    filter.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    filter.frequency.setValueAtTime(700, audioCtx.currentTime);
 
-                    gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
 
                     osc.connect(filter);
@@ -362,6 +371,22 @@
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
                     osc.start(now);
                     osc.stop(now + 0.08);
+                } else if (type === "powerup") {
+                    osc.type = "triangle";
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(1000, now + 0.2);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                } else if (type === "emp") {
+                    osc.type = "sawtooth";
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.linearRampToValueAtTime(40, now + 0.6);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                    osc.start(now);
+                    osc.stop(now + 0.6);
                 } else if (type === "explode") {
                     osc.type = "sawtooth";
                     osc.frequency.setValueAtTime(160, now);
@@ -393,25 +418,28 @@
         let isPlaying = false;
         let score = 0;
         let lives = 3;
-        let level = 1; // 1 sampai 5
-        let wave = 1;  // 1 atau 2
+        let level = 1;
+        let wave = 1;
         let enemiesRemaining = 6;
 
         let player = {
             x: 0, y: 0,
             size: 36,
-            speed: 3.8,
-            dir: 'UP'
+            speed: 4.2,
+            dir: 'UP',
+            activePowerup: null, // 'laser', 'shield', 'emp'
+            powerupTimer: 0
         };
 
-        let enemyBase = null; // Muncul khusus di Level 5
+        let enemyBase = null;
         let bullets = [];
         let enemies = [];
         let walls = [];
+        let powerups = [];
         let particles = [];
         let enemySpawnTimer = 0;
 
-        // --- Logika Floating Joystick Terpasti Sempurna (Full Left Screen Detection) ---
+        // --- Perbaikan Total Floating Joystick (Super Cair & Anti-Kaku) ---
         let joystickVector = { x: 0, y: 0 };
         let joystickActive = false;
         let joystickTouchId = null;
@@ -423,7 +451,6 @@
             if (!isPlaying || !isTouchDevice) return;
             for (let i = 0; i < e.changedTouches.length; i++) {
                 let touch = e.changedTouches[i];
-                // Sentuhan di setengah sisi kiri layar mengaktifkan joystick
                 if (touch.clientX < window.innerWidth / 2 && !joystickActive) {
                     joystickActive = true;
                     joystickTouchId = touch.identifier;
@@ -448,7 +475,7 @@
                     let dx = touch.clientX - joystickOrigin.x;
                     let dy = touch.clientY - joystickOrigin.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-                    let maxRadius = 45;
+                    let maxRadius = 50;
 
                     if (distance > maxRadius) {
                         dx = (dx / distance) * maxRadius;
@@ -498,19 +525,25 @@
         function playerFire() {
             if (!isPlaying) return;
             let playerBullets = bullets.filter(b => b.isPlayer);
-            if (playerBullets.length < 3) {
+            let limit = player.activePowerup === 'laser' ? 6 : 3;
+            if (playerBullets.length < limit) {
                 playSound("shoot");
                 let bx = player.x + player.size / 2 - 3;
                 let by = player.y + player.size / 2 - 3;
                 let vx = 0, vy = 0;
-                let speed = 8.5;
+                let speed = player.activePowerup === 'laser' ? 11 : 8.5;
 
                 if (player.dir === 'UP') vy = -speed;
                 else if (player.dir === 'DOWN') vy = speed;
                 else if (player.dir === 'LEFT') vx = -speed;
                 else if (player.dir === 'RIGHT') vx = speed;
 
-                bullets.push({ x: bx, y: by, vx: vx, vy: vy, size: 6, isPlayer: true });
+                bullets.push({ x: bx, y: by, vx: vx, vy: vy, size: player.activePowerup === 'laser' ? 8 : 6, isPlayer: true });
+                
+                // Jika power-up laser, tembakkan dobel laras
+                if (player.activePowerup === 'laser') {
+                    bullets.push({ x: bx + (vy !== 0 ? 10 : 0), y: by + (vx !== 0 ? 10 : 0), vx: vx, vy: vy, size: 8, isPlayer: true });
+                }
             }
         }
 
@@ -522,26 +555,24 @@
 
             bullets = [];
             enemies = [];
+            powerups = [];
             particles = [];
             enemyBase = null;
 
-            // Jumlah musuh meningkat tiap level
             enemiesRemaining = 4 + (level * 2);
 
-            // Jika di level 5 dan wave 2, munculkan Base Lawan di atas tengah
             if (level === 5 && wave === 2) {
                 enemyBase = {
-                    x: canvas.width / 2 - 45,
+                    x: canvas.width / 2 - 50,
                     y: 70,
-                    w: 90,
-                    h: 50,
-                    health: 15,
-                    maxHealth: 15
+                    w: 100,
+                    h: 55,
+                    health: 20,
+                    maxHealth: 20
                 };
-                enemiesRemaining = 0; // Tidak ada tank musuh di wave final level 5, fokus hancurkan base!
+                enemiesRemaining = 0;
             }
 
-            // Buat barikade / tembok penghalang pertempuran
             walls = [];
             let cols = Math.floor(canvas.width / 60);
             let rows = Math.floor(canvas.height / 60);
@@ -564,6 +595,8 @@
             lives = 3;
             level = 1;
             wave = 1;
+            player.activePowerup = null;
+            player.powerupTimer = 0;
             isPlaying = true;
             initLevel();
             loop();
@@ -590,7 +623,7 @@
                     x: spawnX,
                     y: 70,
                     size: 36,
-                    speed: 1.1 + (level * 0.15),
+                    speed: 1.15 + (level * 0.12),
                     dir: 'DOWN',
                     shootTimer: 0
                 });
@@ -598,13 +631,19 @@
             }
         }
 
+        function spawnPowerup(x, y) {
+            let types = ['heart', 'laser', 'emp', 'shield'];
+            let chosen = types[Math.floor(Math.random() * types.length)];
+            powerups.push({ x: x, y: y, size: 28, type: chosen });
+        }
+
         function createParticles(x, y, color, count) {
             for (let i = 0; i < count; i++) {
                 particles.push({
                     x: x, y: y,
-                    vx: (Math.random() - 0.5) * 7,
-                    vy: (Math.random() - 0.5) * 7,
-                    radius: Math.random() * 4 + 1,
+                    vx: (Math.random() - 0.5) * 8,
+                    vy: (Math.random() - 0.5) * 8,
+                    radius: Math.random() * 4.5 + 1,
                     color: color,
                     alpha: 1
                 });
@@ -613,6 +652,15 @@
 
         function update() {
             if (!isPlaying) return;
+
+            // Timer Durasi Power-up
+            if (player.activePowerup) {
+                player.powerupTimer--;
+                if (player.powerupTimer <= 0) {
+                    player.activePowerup = null;
+                    document.getElementById("powerupStatus").innerText = "";
+                }
+            }
 
             let nextX = player.x;
             let nextY = player.y;
@@ -627,10 +675,10 @@
             } else if (keys['KeyD'] || keys['ArrowRight']) {
                 player.dir = 'RIGHT'; nextX += player.speed;
             } 
-            // Gerakan Floating Joystick HP
+            // Gerakan Floating Joystick (Sangat Halus & Responsif)
             else if (joystickActive) {
-                nextX += joystickVector.x * player.speed * 1.15;
-                nextY += joystickVector.y * player.speed * 1.15;
+                nextX += joystickVector.x * player.speed * 1.25;
+                nextY += joystickVector.y * player.speed * 1.25;
 
                 if (Math.abs(joystickVector.x) > Math.abs(joystickVector.y)) {
                     player.dir = joystickVector.x > 0 ? 'RIGHT' : 'LEFT';
@@ -645,10 +693,9 @@
                 player.y = nextY;
             }
 
-            // Spawn Musuh (Jika bukan wave final level 5)
             if (!(level === 5 && wave === 2)) {
                 enemySpawnTimer++;
-                if (enemySpawnTimer % 75 === 0) {
+                if (enemySpawnTimer % 70 === 0) {
                     spawnEnemy();
                 }
             }
@@ -688,6 +735,35 @@
                 }
             }
 
+            // Cek Tabrakan Power-up dengan Player
+            for (let p = powerups.length - 1; p >= 0; p--) {
+                let pw = powerups[p];
+                if (player.x < pw.x + pw.size && player.x + player.size > pw.x &&
+                    player.y < pw.y + pw.size && player.y + player.size > pw.y) {
+                    playSound("powerup");
+                    
+                    if (pw.type === 'heart') {
+                        lives++;
+                        document.getElementById("powerupStatus").innerText = "EXTRA LIFE +1 💚";
+                    } else if (pw.type === 'laser') {
+                        player.activePowerup = 'laser';
+                        player.powerupTimer = 350; // durasi
+                        document.getElementById("powerupStatus").innerText = "OVERCHARGE LASER ⚡";
+                    } else if (pw.type === 'shield') {
+                        player.activePowerup = 'shield';
+                        player.powerupTimer = 300;
+                        document.getElementById("powerupStatus").innerText = "ENERGY SHIELD 🛡️";
+                    } else if (pw.type === 'emp') {
+                        playSound("emp");
+                        createParticles(canvas.width/2, canvas.height/2, "#00ffcc", 80);
+                        enemies = []; // Hancurkan semua musuh di layar seketika!
+                        document.getElementById("powerupStatus").innerText = "CYBER EMP BOMB! 💣";
+                    }
+
+                    powerups.splice(p, 1);
+                }
+            }
+
             // Update Peluru
             for (let i = bullets.length - 1; i >= 0; i--) {
                 let b = bullets[i];
@@ -716,46 +792,48 @@
                 }
 
                 if (b.isPlayer) {
-                    // Cek Tabrakan Peluru Player dengan Base Lawan (Level 5 Wave 2)
                     if (enemyBase && b.x < enemyBase.x + enemyBase.w && b.x + b.size > enemyBase.x &&
                         b.y < enemyBase.y + enemyBase.h && b.y + b.size > enemyBase.y) {
                         enemyBase.health--;
                         playSound("explode");
-                        createParticles(b.x, b.y, "#ff007f", 10);
+                        createParticles(b.x, b.y, "#ff007f", 12);
                         bullets.splice(i, 1);
                         if (enemyBase.health <= 0) {
-                            createParticles(enemyBase.x + enemyBase.w/2, enemyBase.y + enemyBase.h/2, "#facc15", 50);
+                            createParticles(enemyBase.x + enemyBase.w/2, enemyBase.y + enemyBase.h/2, "#facc15", 60);
                             victory();
                             return;
                         }
                         continue;
                     }
 
-                    // Cek Tabrakan Peluru Player dengan Musuh
                     let hitEnemy = false;
                     for (let e = enemies.length - 1; e >= 0; e--) {
                         let en = enemies[e];
                         if (b.x < en.x + en.size && b.x + b.size > en.x &&
                             b.y < en.y + en.size && b.y + b.size > en.y) {
+                            
+                            // Peluang 35% spawn power-up saat musuh hancur
+                            if (Math.random() < 0.35) {
+                                spawnPowerup(en.x, en.y);
+                            }
+
                             enemies.splice(e, 1);
                             hitEnemy = true;
                             score += 150;
                             playSound("explode");
-                            createParticles(en.x + en.size/2, en.y + en.size/2, "#ff007f", 22);
+                            createParticles(en.x + en.size/2, en.y + en.size/2, "#ff007f", 25);
                             
-                            // Cek Ganti Wave atau Level
                             if (enemies.length === 0 && enemiesRemaining === 0) {
                                 playSound("wave_clear");
                                 if (wave === 1) {
-                                    wave = 2; // Naik ke wave 2 di level yang sama
+                                    wave = 2;
                                     initLevel();
                                 } else {
                                     if (level < 5) {
                                         level++;
-                                        wave = 1; // Naik ke level berikutnya, kembali ke wave 1
+                                        wave = 1;
                                         initLevel();
                                     } else {
-                                        // Jika selesai wave 2 di level 5 tapi base belum hancur (persiapan boss base)
                                         wave = 2;
                                         initLevel();
                                     }
@@ -769,13 +847,21 @@
                         continue;
                     }
                 } else {
-                    // Peluru Musuh mengenai Player
                     if (b.x < player.x + player.size && b.x + b.size > player.x &&
                         b.y < player.y + player.size && b.y + b.size > player.y) {
+                        
+                        bullets.splice(i, 1);
+
+                        // Jika punya shield, abaikan damage
+                        if (player.activePowerup === 'shield') {
+                            playSound("powerup");
+                            continue;
+                        }
+
                         lives--;
                         playSound("explode");
                         createParticles(player.x + player.size/2, player.y + player.size/2, "#00ffcc", 25);
-                        bullets.splice(i, 1);
+                        
                         if (lives <= 0) {
                             gameOver();
                             return;
@@ -795,7 +881,7 @@
             }
         }
 
-        // Render Tank Estetik Masterpiece
+        // Render Tank Masterpiece AAA-Indie
         function drawTank(x, y, size, dir, color, isPlayer) {
             ctx.save();
             ctx.translate(x + size / 2, y + size / 2);
@@ -806,39 +892,53 @@
             else if (dir === 'RIGHT') angle = Math.PI / 2;
             ctx.rotate(angle);
 
+            // Efek Shield Ring jika aktif
+            if (isPlayer && player.activePowerup === 'shield') {
+                ctx.strokeStyle = "#38bdf8";
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.arc(0, 0, size * 0.85, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
             // Bayangan
-            ctx.fillStyle = "rgba(0,0,0,0.5)";
-            ctx.fillRect(-size/2 + 3, -size/2 + 3, size, size);
+            ctx.fillStyle = "rgba(0,0,0,0.6)";
+            ctx.fillRect(-size/2 + 4, -size/2 + 4, size, size);
 
             // Trek Roda
-            ctx.fillStyle = "#0f172a";
+            ctx.fillStyle = "#090a0f";
             ctx.fillRect(-size/2, -size/2, 8, size);
             ctx.fillRect(size/2 - 8, -size/2, 8, size);
-            ctx.fillStyle = "#334155";
+            ctx.fillStyle = "#475569";
             ctx.fillRect(-size/2 + 2, -size/2 + 4, 4, size - 8);
             ctx.fillRect(size/2 - 6, -size/2 + 4, 4, size - 8);
 
-            // Bodi Tank
+            // Bodi Utama
             ctx.fillStyle = color;
             ctx.fillRect(-size/2 + 8, -size/2 + 4, size - 16, size - 8);
             
-            // Armor Tengah
-            ctx.fillStyle = isPlayer ? "#00b38f" : "#b30047";
+            // Armor Tengah & Indikator Powerup Laser
+            ctx.fillStyle = (isPlayer && player.activePowerup === 'laser') ? "#facc15" : (isPlayer ? "#00b38f" : "#b30047");
             ctx.fillRect(-size/2 + 10, -size/2 + 8, size - 20, size - 16);
 
-            // Meriam
+            // Laras Meriam (Dobel jika Laser aktif)
             ctx.fillStyle = isPlayer ? "#ffffff" : "#ff3333";
-            ctx.fillRect(-3.5, -size/2 - 12, 7, 24);
-            ctx.fillStyle = "#05050a";
-            ctx.fillRect(-1.5, -size/2 - 12, 3, 5);
+            if (isPlayer && player.activePowerup === 'laser') {
+                ctx.fillRect(-6, -size/2 - 13, 4, 26);
+                ctx.fillRect(2, -size/2 - 13, 4, 26);
+            } else {
+                ctx.fillRect(-3.5, -size/2 - 13, 7, 26);
+            }
+            ctx.fillStyle = "#030408";
+            ctx.fillRect(-1.5, -size/2 - 13, 3, 5);
 
             // Kubah Turret
-            ctx.fillStyle = "#05050a";
+            ctx.fillStyle = "#030408";
             ctx.beginPath();
-            ctx.arc(0, 0, 8.5, 0, Math.PI * 2);
+            ctx.arc(0, 0, 9, 0, Math.PI * 2);
             ctx.fill();
             ctx.strokeStyle = color;
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 2.5;
             ctx.stroke();
 
             ctx.restore();
@@ -847,8 +947,8 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Grid Parallax / Latar Belakang Cyber
-            ctx.strokeStyle = "#111827";
+            // Latar Grid Cyber
+            ctx.strokeStyle = "#0f172a";
             ctx.lineWidth = 1.2;
             for (let x = 0; x < canvas.width; x += 60) {
                 ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
@@ -857,38 +957,56 @@
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
 
-            // Render Base Lawan jika di Level 5 Wave 2
+            // Render Base Lawan (Level 5 Wave 2)
             if (enemyBase) {
-                ctx.fillStyle = "#7f1d1d";
+                ctx.fillStyle = "#991b1b";
                 ctx.fillRect(enemyBase.x, enemyBase.y, enemyBase.w, enemyBase.h);
-                ctx.strokeStyle = "#ef4444";
+                ctx.strokeStyle = "#f87171";
                 ctx.lineWidth = 3;
                 ctx.strokeRect(enemyBase.x, enemyBase.y, enemyBase.w, enemyBase.h);
 
-                // Inti Reaktor Base Berdenyut
                 ctx.fillStyle = "#facc15";
-                ctx.fillRect(enemyBase.x + 15, enemyBase.y + 12, enemyBase.w - 30, enemyBase.h - 24);
+                ctx.fillRect(enemyBase.x + 15, enemyBase.y + 15, enemyBase.w - 30, enemyBase.h - 30);
                 
-                // Teks Boss Base & Bar Darah
                 ctx.fillStyle = "#ffffff";
-                ctx.font = "bold 16px 'VT323', monospace";
+                ctx.font = "bold 18px 'Orbitron', sans-serif";
                 ctx.textAlign = "center";
-                ctx.fillText("ENEMY COMMAND BASE", enemyBase.x + enemyBase.w/2, enemyBase.y - 10);
+                ctx.fillText("ENEMY COMMAND BASE", enemyBase.x + enemyBase.w/2, enemyBase.y - 12);
 
-                // Health bar base
-                ctx.fillStyle = "#111827";
-                ctx.fillRect(enemyBase.x, enemyBase.y - 30, enemyBase.w, 10);
+                ctx.fillStyle = "#0f172a";
+                ctx.fillRect(enemyBase.x, enemyBase.y - 32, enemyBase.w, 10);
                 ctx.fillStyle = "#ef4444";
-                ctx.fillRect(enemyBase.x, enemyBase.y - 30, enemyBase.w * (enemyBase.health / enemyBase.maxHealth), 10);
+                ctx.fillRect(enemyBase.x, enemyBase.y - 32, enemyBase.w * (enemyBase.health / enemyBase.maxHealth), 10);
             }
 
-            // Render Dinding / Barikade
+            // Render Barikade
             for (let wall of walls) {
                 ctx.fillStyle = "#d97706";
                 ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
-                ctx.strokeStyle = "#451a03";
+                ctx.strokeStyle = "#78350f";
                 ctx.lineWidth = 2;
                 ctx.strokeRect(wall.x, wall.y, wall.w, wall.h);
+            }
+
+            // Render Power-ups di Arena
+            for (let pw of powerups) {
+                ctx.save();
+                ctx.translate(pw.x + pw.size/2, pw.y + pw.size/2);
+                ctx.fillStyle = pw.type === 'heart' ? '#22c55e' : (pw.type === 'laser' ? '#facc15' : (pw.type === 'shield' ? '#38bdf8' : '#ec4899'));
+                ctx.beginPath();
+                ctx.arc(0, 0, pw.size/2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ctx.fillStyle = "#030408";
+                ctx.font = "bold 14px 'Orbitron', sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                let symbol = pw.type === 'heart' ? '💚' : (pw.type === 'laser' ? '⚡' : (pw.type === 'shield' ? '🛡️' : '💣'));
+                ctx.fillText(symbol, 0, 1);
+                ctx.restore();
             }
 
             for (let p of particles) {
@@ -901,14 +1019,12 @@
                 ctx.restore();
             }
 
-            // Render Tank Player & Musuh
             drawTank(player.x, player.y, player.size, player.dir, "#00ffcc", true);
 
             for (let en of enemies) {
                 drawTank(en.x, en.y, en.size, en.dir, "#ff0066", false);
             }
 
-            // Render Peluru
             for (let b of bullets) {
                 ctx.fillStyle = b.isPlayer ? "#facc15" : "#ef4444";
                 ctx.beginPath();
@@ -916,18 +1032,18 @@
                 ctx.fill();
             }
 
-            // Efek Scanline CRT Masterpiece
-            ctx.fillStyle = "rgba(0, 0, 0, 0.14)";
+            // Efek Scanline CRT High-End
+            ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
             for (let sy = 0; sy < canvas.height; sy += 4) {
                 ctx.fillRect(0, sy, canvas.width, 1);
             }
 
             document.getElementById("scoreDisplay").innerText = `SCORE: ${Math.floor(score).toString().padStart(4, '0')}`;
             if (level === 5 && wave === 2) {
-                document.getElementById("levelDisplay" ).innerText = `FINAL MISSION: DESTROY BASE`;
+                document.getElementById("levelDisplay").innerText = `FINAL BOSS`;
                 document.getElementById("enemiesLeft").innerText = `BASE HP: ${enemyBase.health}`;
             } else {
-                document.getElementById("levelDisplay").innerText = `LEVEL ${level} - WAVE ${wave}`;
+                document.getElementById("levelDisplay").innerText = `LVL ${level}-${wave}`;
                 document.getElementById("enemiesLeft").innerText = `ENEMIES: ${enemiesRemaining + enemies.length}`;
             }
             document.getElementById("livesDisplay").innerText = `LIVES: ${lives} 💚`;
